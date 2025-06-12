@@ -139,3 +139,19 @@ body {
     width: 90%;
   }
 }
+/*Flash sale*/
+.flash-sale-banner {
+  background-color: #ff4d4f;
+  color: white;
+  text-align: center;
+  display:inline-flexbox;
+  padding: 10px;
+  font-weight: bold;
+  animation: flash 2s infinite;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+

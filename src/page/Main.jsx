@@ -21,7 +21,7 @@ const Main = () => {
   }, [selectedCategory]);
 
   return (
-    <div className="main-container">
+    <><div className="main-container">
       <h1 className="title">Nostra</h1>
 
       <div className="category-container">
@@ -30,30 +30,29 @@ const Main = () => {
             key={cat}
             title={cat}
             onClick={() => setSelectedCategory(cat)}
-            img={
-              cat === 'Men'
-                ? 'https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-                : cat === 'Women'
+            img={cat === 'Men'
+              ? 'https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+              : cat === 'Women'
                 ? 'https://images.pexels.com/photos/1877736/pexels-photo-1877736.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-                : 'https://images.pexels.com/photos/1648375/pexels-photo-1648375.jpeg?auto=compress&cs=tinysrgb&w=600'
-            
-            }
-          />
+                : 'https://images.pexels.com/photos/1648375/pexels-photo-1648375.jpeg?auto=compress&cs=tinysrgb&w=600'} />
         ))}
-        
-        
+
+
       </div>
-      
-      
+
+
 
       {selectedCategory && (
-         <><h2 className="category-title">
+        <><h2 className="category-title">
           {selectedCategory === 'Men' && '👔 Men Products'}
           {selectedCategory === 'Women' && '👗 Women Products'}
           {selectedCategory === 'Kids' && '🧒 Kids Products'}
         </h2><ProductList products={products} /></>
       )}
-    </div>
+    </div><div className="flash-sale-banner">
+        🛍️ Flash Sale is Live! Grab Your Favorites Now – Limited Time Only!
+      </div></>
+
   );
 };
 

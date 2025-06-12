@@ -55,9 +55,7 @@ const App = () => (
       <Route path="/checkout/:id" element={<Checkout />} />
       <Route path='/buynow' element={<Buynow/>}/>
     </Routes>
-    
     <Footer />
-    
   </div>
   
 );
