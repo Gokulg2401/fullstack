@@ -1,0 +1,13 @@
+/* src/comp/Header.css */
+.sticky{
+  position:sticky;
+  background-color: #ffffff;
+  align-items: center;
+  color:black;
+  padding: 1rem 2 rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ccc;
+  color: black;
+  width:100%;
+  z-index:10;
+}

@@ -43,19 +43,18 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Main from './page/Main';
 import Checkout from './comp/Checkout';
-import Footer from './comp/Footer';
 import './Myapp.css';
 import Buynow from './page/Buynow';
 
 
 const App = () => (
   <div className='app-container'>
+    
     <Routes>
       <Route path="/main" element={<Main />} />
       <Route path="/checkout/:id" element={<Checkout />} />
       <Route path='/buynow' element={<Buynow/>}/>
     </Routes>
-    <Footer />
   </div>
   
 );

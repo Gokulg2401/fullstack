@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import CategoryCard from '../comp/CategoryCard';
 import ProductList from '../comp/ProductList';
+import Header from '../comp/Header';
+import Footer from '../comp/Footer';
 
-const Main = () => {
+
+function Main() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     if (!selectedCategory) return;
     const fetchProducts = async () => {
@@ -13,16 +17,19 @@ const Main = () => {
       setProducts(data.products);
     };
     const categoryMap = {
-    Men: 'mens-shirts',
-    Women: 'womens-dresses',
-    Kids: 'tops',
-  };
+      Men: 'mens-shirts',
+      Women: 'womens-dresses',
+      Kids: 'tops',
+    };
     fetchProducts();
   }, [selectedCategory]);
 
   return (
-    <><div className="main-container">
-      <h1 className="title">Nostra</h1>
+    <><><div className="main-container">
+      <div className='.sticky-header'>
+        <Header />
+      </div>
+      <h2>Categories</h2>
 
       <div className="category-container">
         {['Men', 'Women', 'Kids'].map((cat) => (
@@ -50,10 +57,15 @@ const Main = () => {
         </h2><ProductList products={products} /></>
       )}
     </div><div className="flash-sale-banner">
-        🛍️ Flash Sale is Live! Grab Your Favorites Now – Limited Time Only!
+        🛍️ Flash Sale is Live! Grab Your Favorites Now – Limited Time Only! Hurry up!
+      </div></><div className='apps'>
+
+        <Footer />
+
       </div></>
 
+
   );
-};
+}
 
 export default Main;
