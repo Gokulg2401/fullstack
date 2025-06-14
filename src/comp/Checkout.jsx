@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Footer from '../comp/Footer';
 
-const Checkout = () => {
+function Checkout() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -18,7 +19,7 @@ const Checkout = () => {
   if (!product) return <p>Loading...</p>;
 
   return (
-    <div className="checkout-container">
+    <><div className="checkout-container">
       <div className="checkout-card">
         <h2>Checkout Page</h2>
         <img src={product.thumbnail} alt={product.title} />
@@ -28,9 +29,14 @@ const Checkout = () => {
         <Link to="/buynow">
           <button className="buy-now-btn">Buy Now</button>
         </Link>
+
       </div>
     </div>
+    <div className="apps">
+      <Footer />
+
+      </div></>
   );
-};
+}
 
 export default Checkout;

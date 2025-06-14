@@ -1,10 +1,11 @@
 // src/page/BuyNow.jsx
 import React from 'react';
 import './Buynow.css';
+import Footer from '../comp/Footer';
 
 const BuyNow = () => {
   return (
-    <div className="buy-now-container">
+    <><div className="buy-now-container">
       <h2>Complete Your Purchase</h2>
       <form className="buy-now-form">
         <input type="text" placeholder="Full Name" required />
@@ -19,7 +20,9 @@ const BuyNow = () => {
         </select>
         <button type="submit">Place Order</button>
       </form>
-    </div>
+    </div><div className='apps'>
+      <Footer />
+        </div></>
   );
 };
 
