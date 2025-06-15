@@ -4,17 +4,14 @@ import FeaturedProducts from '../comp/FeaturedProducts';
 import ProductList from '../comp/ProductList';
 import Header from '../comp/Header';
 import Footer from '../comp/Footer';
-
-function Main() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [products, setProducts] = useState([]);
-
-  const categoryMap = {
+const categoryMap = {
     Men: 'mens-shirts',
     Women: 'womens-dresses',
     Kids: 'tops',
   };
-
+function Main() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchProducts = async () => {
       if (!selectedCategory) return;
@@ -26,9 +23,8 @@ function Main() {
         console.error('Failed to fetch products:', err);
       }
     };
-
     fetchProducts();
-  }, [selectedCategory]); // ✅ Prevents infinite fetch
+  }, [selectedCategory]);
 
   return (
     <div className="main-container">
@@ -42,17 +38,18 @@ function Main() {
 
       {!selectedCategory && (
         <>
-          <h2>Categories</h2>
+          
+          <h2>Categories 🗂️</h2>
           <div className="category-container">
-            {['Men', 'Women', 'Kids'].map((cat) => (
+            {['Men ', 'Women ', 'Kids '].map((cat) => (
               <CategoryCard
                 key={cat}
                 title={cat}
                 onClick={() => setSelectedCategory(cat)}
                 img={
-                  cat === 'Men'
+                  cat === 'Men '
                     ? 'https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-                    : cat === 'Women'
+                    : cat === 'Women '
                     ? 'https://images.pexels.com/photos/1877736/pexels-photo-1877736.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
                     : 'https://images.pexels.com/photos/1648375/pexels-photo-1648375.jpeg?auto=compress&cs=tinysrgb&w=600'
                 }
@@ -78,6 +75,7 @@ function Main() {
 
       <Footer />
     </div>
+    
   );
 }
 

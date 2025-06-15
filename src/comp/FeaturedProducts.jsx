@@ -1,38 +1,31 @@
- import React, { useEffect, useState } from 'react';
-import ProductList from '../comp/ProductList'; // Reuse existing product UI
+import React, { useEffect, useState } from 'react';
+import ProductList from './ProductList';
 
 const FeaturedProducts = () => {
   const [featured, setFeatured] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchFeatured = async () => {
-    try {
-      const res = await fetch('https://dummyjson.com/products?limit=4&skip=20'); // Random 4
-      const data = await res.json();
-      setFeatured(data.products);
-    } catch (err) {
-      console.error('Error fetching featured:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const fetchFeatured = async () => {
+      try {
+        const res = await fetch('https://dummyjson.com/products?limit=5&skip=10');
+        const data = await res.json();
+        console.log("Fetched featured products:", data.products); // ✅ Confirm fetch
+        setFeatured(data.products);
+      } catch (error) {
+        console.error("Failed to fetch featured products:", error);
+      }
+    };
     fetchFeatured();
   }, []);
 
+  if (!featured || featured.length === 0) {
+    return <p>No featured products available.</p>;
+  }
+
   return (
     <div className="featured-products">
-      <h2>🌟 Featured Products</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="product-list">
-          {featured.map((item) => (
-            <ProductList key={item.id} product={item} />
-          ))}
-        </div>
-      )}
+      <h2>🔥 Featured Products</h2>
+      <ProductList products={featured} />
     </div>
   );
 };

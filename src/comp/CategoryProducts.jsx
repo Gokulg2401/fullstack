@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductList from '../comp/ProductList';
-
-const CategoryProducts = () => {
-  const { category } = useParams();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const categoryURLs = {
+const categoryURLs = {
     men: [
       'https://dummyjson.com/products/category/mens-shirts',
-      'https://dummyjson.com/products/category/mens-pants',
+      'https://dummyjson.com/products/category/mens-shoes',
     ],
     women: [
       'https://dummyjson.com/products/category/womens-dresses',
-      'https://dummyjson.com/products/category/womens-tops',
+      'https://dummyjson.com/products/category/womens-shoes',
     ],
     kids: [
       'https://dummyjson.com/products/category/tops',
@@ -22,6 +16,10 @@ const CategoryProducts = () => {
     ],
   };
 
+const CategoryProducts = () => {
+  const { category } = useParams();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const fetchMultiple = async (urls) => {
     try {
       const all = await Promise.all(
@@ -48,7 +46,7 @@ const CategoryProducts = () => {
       setLoading(false);
     };
     loadProducts();
-  },);
+  },[category]);
 
   return (
     <div className="category-products">

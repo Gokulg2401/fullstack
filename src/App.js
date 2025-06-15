@@ -45,7 +45,6 @@ import Main from './page/Main';
 import Checkout from './comp/Checkout';
 import './Myapp.css';
 import Buynow from './page/Buynow';
-import CategoryCard from './comp/CategoryCard'; // wherever your cards are
 import CategoryProducts from './comp/CategoryProducts';
 
 
@@ -54,10 +53,10 @@ const App = () => (
     
     <Routes>
       <Route path="/main" element={<Main />} />
-       <Route path="/" element={<CategoryCard />} />
       <Route path="/category/:category" element={<CategoryProducts />} />
       <Route path="/checkout/:id" element={<Checkout />} />
       <Route path='/buynow' element={<Buynow/>}/>
+      
     </Routes>
   </div>
   
