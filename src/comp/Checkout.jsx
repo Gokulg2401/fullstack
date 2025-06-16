@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { showSuccess,showError } from "../comp/Toast";
 
 function Checkout() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const handleBuyNow = () => {
+  try {
+    // Simulate success checkout logic
+    showSuccess("Added to cart! 🎉");
+    
+    // Optionally navigate or reset form
+  } catch (error) {
+    showError("Something went wrong during checkout 😢");
+  }
+};
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -26,7 +37,7 @@ function Checkout() {
         <p>{product.description}</p>
         <p>Price: ${product.price}</p>
         <Link to="/buynow">
-          <button className="buy-now-btn">Buy Now</button>
+          < button onClick={handleBuyNow} button className="buy-now-btn">Buy Now</button>
         </Link>
 
       </div>

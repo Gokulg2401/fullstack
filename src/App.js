@@ -76,6 +76,8 @@ import Checkout from './comp/Checkout';
 import CategoryProducts from './comp/CategoryProducts';
 import Buynow from './page/Buynow';
 import Footer from './comp/Footer';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const App = () => {
   const location = useLocation(); // ✅ Valid, only once
   const showFooter = location.pathname !== '/';
@@ -88,7 +90,9 @@ const App = () => {
         <Route path="/category/:category" element={<CategoryProducts />} />
         <Route path="/checkout/:id" element={<Checkout />} />
         <Route path="/buynow" element={<Buynow />} />
+       
       </Routes>
+       <ToastContainer position="top-center" autoClose={3000} />
       </div>
       {showFooter && <Footer />}
     </div>

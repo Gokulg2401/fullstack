@@ -12,6 +12,7 @@ const categoryMap = {
 function Main() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
+  
   useEffect(() => {
     const fetchProducts = async () => {
       if (!selectedCategory) return;
@@ -28,6 +29,7 @@ function Main() {
 
   return (
     <div className="main-container">
+
       <div className="sticky-header">
         <Header />
       </div>

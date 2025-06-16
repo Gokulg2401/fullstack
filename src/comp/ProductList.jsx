@@ -4,6 +4,7 @@ import '../Myapp.css';
 
 const ProductList = ({ products }) => {
   const navigate = useNavigate();
+  
 
   return (
     <div className="product-list">
