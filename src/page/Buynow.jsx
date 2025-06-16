@@ -1,7 +1,6 @@
 // src/page/BuyNow.jsx
 import React from 'react';
 import './Buynow.css';
-import Footer from '../comp/Footer';
 
 const BuyNow = () => {
   return (
@@ -20,9 +19,7 @@ const BuyNow = () => {
         </select>
         <button type="submit">Place Order</button>
       </form>
-    </div><div className='apps'>
-      <Footer />
-        </div></>
+    </div></>
   );
 };
 

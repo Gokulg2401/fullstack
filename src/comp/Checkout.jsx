@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Footer from '../comp/Footer';
 
 function Checkout() {
   const { id } = useParams();
@@ -32,10 +31,7 @@ function Checkout() {
 
       </div>
     </div>
-    <div className="apps">
-      <Footer />
-
-      </div></>
+    </>
   );
 }
 

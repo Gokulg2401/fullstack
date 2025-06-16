@@ -3,7 +3,7 @@ import CategoryCard from '../comp/CategoryCard';
 import FeaturedProducts from '../comp/FeaturedProducts';
 import ProductList from '../comp/ProductList';
 import Header from '../comp/Header';
-import Footer from '../comp/Footer';
+
 const categoryMap = {
     Men: 'mens-shirts',
     Women: 'womens-dresses',
@@ -73,7 +73,7 @@ function Main() {
         </>
       )}
 
-      <Footer />
+      
     </div>
     
   );

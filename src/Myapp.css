@@ -131,6 +131,16 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-content {
+  flex: 1; /* makes content take up available vertical space */
+}
+
 .buy-now-btn:hover {
   background-color: #e60039;
 }
