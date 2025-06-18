@@ -1,8 +1,7 @@
 /* src/page/BuyNow.css */
 .buy-now-container {
-  padding: 20px;
+  padding-top: 20px;
   margin-top: 0 auto;
-  background: #f5f5f5;
   border-radius: 8px;
 }
 

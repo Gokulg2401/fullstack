@@ -50,7 +50,10 @@ const CategoryProducts = () => {
 
   return (
     <div className="category-products">
-      <h2>{category?.toUpperCase()} Products</h2>
+      <h2 className="category-heading">
+      {category?.toUpperCase()} Products 🛍️
+      </h2>
+
       {loading ? <p>Loading products...</p> : <ProductList products={products} />}
     </div>
   );

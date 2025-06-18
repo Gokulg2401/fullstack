@@ -1,27 +1,14 @@
 /* Header Styling */
-.elegant-header {
+.header{
+  position: sticky;
+  top: 0;
   width: 100%;
-  background-color: #fff;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* soft bottom shadow */
-  border-top: 3px solid #2f253d; /* subtle top border */
-  padding: 10px 0;
-  position: relative;
-  z-index: 999;
+  background-color: var(--bg-color);
+  
+  z-index: 1000;
+  color: var(--text-color);
+  transition: background-color 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
-.header-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
 
-.brand {
-  font-size: 24px;
-  font-weight: 700;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #000;
-  margin: 0;
-}

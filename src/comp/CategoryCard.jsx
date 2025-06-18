@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../Myapp.css';
+
 import { showInfo } from '../comp/Toast';
 
 const CategoryCard = ({ title, img,onClick }) => {
@@ -12,12 +12,28 @@ const CategoryCard = ({ title, img,onClick }) => {
     const category = title.toLowerCase(); // men, women, kids
     navigate(`/category/${category}`);
   };
+  // 🧠 Helper to return emoji based on title
+  const getEmoji = (title) => {
+  const cleanTitle = title.trim().toLowerCase(); // Normalize
+
+  switch (cleanTitle) {
+    case 'men':
+      return '👔';
+    case 'women':
+      return '🥻';
+    case 'kids':
+      return '👶🏼';
+    default:
+      return '🛍️';
+  }
+};
+
 
   return (
     <div className="category-card" onClick={handleClick}>
       
       <img src={img} alt={title} className="category-img" />
-      <h3>{title}</h3>
+      <h3>{getEmoji(title)} {title}</h3>
     </div>
     
   );

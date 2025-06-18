@@ -1,14 +1,14 @@
 // src/comp/Header.jsx
 import React from 'react';
-import '../Myapp.css';
+import './Header.css';
 
 const Header = () => {
   return (
-    <header className="elegant-header">
-      <div className="header-content">
-        <h1 className="brand">Nostra 👜</h1>
+    
+      <div className="header">
+        <h1>Nostra 👜</h1>      
       </div>
-    </header>
+    
   );
 };
 

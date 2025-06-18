@@ -3,7 +3,6 @@ import CategoryCard from '../comp/CategoryCard';
 import FeaturedProducts from '../comp/FeaturedProducts';
 import ProductList from '../comp/ProductList';
 import Header from '../comp/Header';
-
 const categoryMap = {
     Men: 'mens-shirts',
     Women: 'womens-dresses',
@@ -33,6 +32,7 @@ function Main() {
       <div className="sticky-header">
         <Header />
       </div>
+     
 
       <div className="flash-sale-banner">
         🛍️ Flash Sale is Live! Grab Your Favorites Now – Limited Time Only! Hurry up!
@@ -41,7 +41,7 @@ function Main() {
       {!selectedCategory && (
         <>
           
-          <h2>Categories 🗂️</h2>
+          <h2 className='section-heading'>Categories 🗂️</h2>
           <div className="category-container">
             {['Men ', 'Women ', 'Kids '].map((cat) => (
               <CategoryCard
@@ -59,7 +59,7 @@ function Main() {
             ))}
           </div>
 
-          <h2 className="featured-heading">🌟 Featured Products</h2>
+          <h2 className="section-heading">🌟 Featured Products</h2>
           <FeaturedProducts />
         </>
       )}

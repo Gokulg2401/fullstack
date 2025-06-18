@@ -5,7 +5,7 @@
   padding: 30px 20px;
   text-align: center;
   margin-top: auto;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 .footer-content h2 {
@@ -22,7 +22,7 @@
 
 .footer-icons a {
   color: white;
-  font-size: 20px;
+  font-size: 30px;
   margin: 0 10px;
   text-decoration: none;
   transition: color 0.3s ease;

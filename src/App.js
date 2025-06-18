@@ -72,19 +72,23 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Main from './page/Main';
+import './Myapp.css';
 import Checkout from './comp/Checkout';
 import CategoryProducts from './comp/CategoryProducts';
 import Buynow from './page/Buynow';
 import Footer from './comp/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Toggletheme from './comp/Toggletheme';
 const App = () => {
   const location = useLocation(); // ✅ Valid, only once
   const showFooter = location.pathname !== '/';
+  const isMainpage=location.pathname!=='/';
+ // const showToggletheme=location.pathname!=='/';
   return (
     <>
     <div className='app-container'>
-      <div className='page-content'>
+      <div className='page-content'>     
       <Routes>     
         <Route path="/main" element={<Main />} />
         <Route path="/category/:category" element={<CategoryProducts />} />
@@ -93,9 +97,11 @@ const App = () => {
        
       </Routes>
        <ToastContainer position="top-center" autoClose={3000} />
+       {isMainpage && <Toggletheme />}
       </div>
       {showFooter && <Footer />}
     </div>
+        
     </>
   );
 };
