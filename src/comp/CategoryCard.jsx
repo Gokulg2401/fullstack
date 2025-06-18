@@ -33,7 +33,7 @@ const CategoryCard = ({ title, img,onClick }) => {
     <div className="category-card" onClick={handleClick}>
       
       <img src={img} alt={title} className="category-img" />
-      <h3>{getEmoji(title)} {title}</h3>
+      <h3 className='card-title'>{getEmoji(title)} {title}</h3>
     </div>
     
   );

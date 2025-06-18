@@ -35,43 +35,10 @@
 
 // //   );
 // // }
-
-// // src/App.js
-
-// //Project Code
-// import React from 'react';
-// import { Routes, Route, } from 'react-router-dom';
-// import Main from './page/Main';
-// import Checkout from './comp/Checkout';
-// import './Myapp.css';
-// import Buynow from './page/Buynow';
-// import CategoryProducts from './comp/CategoryProducts';
-
-
-// const App = () => (
-  
-
-//   // Show footer on all pages except "/"
-//   <div className='app-container'> 
-//     <Routes>
-//       <Route path="/main" element={<Main />} />
-//       <Route path="/category/:category" element={<CategoryProducts />} />
-//       <Route path="/checkout/:id" element={<Checkout />} />
-//       <Route path='/buynow' element={<Buynow/>}/>
-      
-//     </Routes>
-    
-//   </div>
-  
-// );
-
-// export default App;
-
-
-
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Main from './page/Main';
+import Landing from './comp/Landing';
 import './Myapp.css';
 import Checkout from './comp/Checkout';
 import CategoryProducts from './comp/CategoryProducts';
@@ -82,25 +49,35 @@ import 'react-toastify/dist/ReactToastify.css'
 import Toggletheme from './comp/Toggletheme';
 const App = () => {
   const location = useLocation(); // ✅ Valid, only once
-  const showFooter = location.pathname !== '/';
-  const isMainpage=location.pathname!=='/';
- // const showToggletheme=location.pathname!=='/';
+  const isInitialPage=location.pathname==='/';
   return (
     <>
     <div className='app-container'>
       <div className='page-content'>     
       <Routes>     
+        <Route path="/" element={<Landing />} />
         <Route path="/main" element={<Main />} />
         <Route path="/category/:category" element={<CategoryProducts />} />
         <Route path="/checkout/:id" element={<Checkout />} />
         <Route path="/buynow" element={<Buynow />} />
        
       </Routes>
-       <ToastContainer position="top-center" autoClose={3000} />
+      {/* Show theme toggle + toast only on non-initial pages */}
+        {!isInitialPage && <Toggletheme />}
+        {!isInitialPage && (
+          <ToastContainer position="top-center" autoClose={3000} />
+        )}
+      </div>
+
+      {/* Show footer only on non-initial pages */}
+      {!isInitialPage && <Footer />}
+    </div>
+       {/* <ToastContainer position="top-center" autoClose={3000} />
        {isMainpage && <Toggletheme />}
       </div>
       {showFooter && <Footer />}
-    </div>
+    </div> */}
+
         
     </>
   );

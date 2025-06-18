@@ -1,6 +1,27 @@
 /* General page styles */
 /*Header*/
 /* src/comp/Header.css */
+/*Landing.css*/
+/* In Myapp.css or Landing.css */
+.landing {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.explore-button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: #1e90ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.explore-button:hover {
+  background-color: #0074d9;
+}
 
 body {
   justify-content: space-between;
@@ -294,7 +315,6 @@ body.light-bg {
 .category-card,
 .product-card,
 .header,
-.category-img,
 .featured-section,
 .category-section {
   background-color: var(--card-bg);
@@ -316,6 +336,30 @@ body.light-bg {
 .light-bg {
   --card-bg: #fff;
 }
+/* Base style for card titles */
+.card-title
+ {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 10px;
+ 
+}
+.card:hover{
+  transform: translateY(-8px); /* lift on hover */
+ /* soft depth */
+}
+
+/* Light mode title */
+body.light-bg .card-title {
+  color: #111;
+}
+
+/* Dark mode title */
+body.dark-bg .card-title {
+  color: #fff;
+}
+
+
 
 
 
