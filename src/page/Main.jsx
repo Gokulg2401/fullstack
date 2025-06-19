@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import CategoryCard from '../comp/CategoryCard';
 import FeaturedProducts from '../comp/FeaturedProducts';
 import ProductList from '../comp/ProductList';
-import Header from '../comp/Header';
 import FlashSale from '../comp/Flashsale';
 const categoryMap = {
     Men: 'mens-shirts',
@@ -29,7 +28,6 @@ function Main() {
 
   return (
     <div className="main-container">
-      <Header />
       <FlashSale />
      
 

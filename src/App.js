@@ -38,6 +38,7 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Main from './page/Main';
+import Header from './comp/Header';
 import Landing from './comp/Landing';
 import './Myapp.css';
 import Checkout from './comp/Checkout';
@@ -50,9 +51,11 @@ import Toggletheme from './comp/Toggletheme';
 const App = () => {
   const location = useLocation(); // ✅ Valid, only once
   const isInitialPage=location.pathname==='/';
+  
   return (
     <>
     <div className='app-container'>
+      <Header />
       <div className='page-content'>     
       <Routes>     
         <Route path="/" element={<Landing />} />
@@ -71,14 +74,7 @@ const App = () => {
 
       {/* Show footer only on non-initial pages */}
       {!isInitialPage && <Footer />}
-    </div>
-       {/* <ToastContainer position="top-center" autoClose={3000} />
-       {isMainpage && <Toggletheme />}
-      </div>
-      {showFooter && <Footer />}
-    </div> */}
-
-        
+    </div>      
     </>
   );
 };
