@@ -3,6 +3,7 @@ import CategoryCard from '../comp/CategoryCard';
 import FeaturedProducts from '../comp/FeaturedProducts';
 import ProductList from '../comp/ProductList';
 import Header from '../comp/Header';
+import FlashSale from '../comp/Flashsale';
 const categoryMap = {
     Men: 'mens-shirts',
     Women: 'womens-dresses',
@@ -28,15 +29,9 @@ function Main() {
 
   return (
     <div className="main-container">
-
-      <div className="sticky-header">
-        <Header />
-      </div>
+      <Header />
+      <FlashSale />
      
-
-      <div className="flash-sale-banner">
-        🛍️ Flash Sale is Live! Grab Your Favorites Now – Limited Time Only! Hurry up!
-      </div>
 
       {!selectedCategory && (
         <>

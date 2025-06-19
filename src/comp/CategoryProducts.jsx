@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductList from '../comp/ProductList';
+import SearchBar from '../comp/SearchBar';
 const categoryURLs = {
     men: [
       'https://dummyjson.com/products/category/mens-shirts',
@@ -19,6 +20,7 @@ const categoryURLs = {
 const CategoryProducts = () => {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
+  const [searchQuery,setsearchQuery]=useState('');
   const [loading, setLoading] = useState(true);
   const fetchMultiple = async (urls) => {
     try {
@@ -47,14 +49,17 @@ const CategoryProducts = () => {
     };
     loadProducts();
   },[category]);
-
+   const  filteredProducts= products.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery)
+  );
   return (
     <div className="category-products">
       <h2 className="category-heading">
       {category?.toUpperCase()} Products 🛍️
       </h2>
+      <SearchBar onSearch={setsearchQuery} />
 
-      {loading ? <p>Loading products...</p> : <ProductList products={products} />}
+      {loading ? <p>Loading products...</p> : <ProductList products={filteredProducts} />}
     </div>
   );
 };
