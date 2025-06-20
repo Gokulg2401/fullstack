@@ -4,6 +4,7 @@ import FeaturedProducts from '../comp/FeaturedProducts';
 import ProductList from '../comp/ProductList';
 import Accessories from '../comp/Accessories';
 import FlashSale from '../comp/FlashSale';
+//Trigger redeploy
 const categoryMap = {
     Men: 'mens-shirts',
     Women: 'womens-dresses',
