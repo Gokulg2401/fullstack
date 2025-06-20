@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import CategoryCard from '../comp/CategoryCard';
 import FeaturedProducts from '../comp/FeaturedProducts';
 import ProductList from '../comp/ProductList';
-import FlashSale from '../comp/Flashsale';
+import Accessories from '../comp/Accessories';
+import FlashSale from '../comp/FlashSale';
 const categoryMap = {
     Men: 'mens-shirts',
     Women: 'womens-dresses',
@@ -28,12 +29,11 @@ function Main() {
 
   return (
     <div className="main-container">
-      <FlashSale />
      
 
       {!selectedCategory && (
         <>
-          
+          <FlashSale />
           <h2 className='section-heading'>Categories 🗂️</h2>
           <div className="category-container">
             {['Men ', 'Women ', 'Kids '].map((cat) => (
@@ -46,12 +46,13 @@ function Main() {
                     ? 'https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
                     : cat === 'Women '
                     ? 'https://images.pexels.com/photos/1877736/pexels-photo-1877736.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-                    : 'https://images.pexels.com/photos/1648375/pexels-photo-1648375.jpeg?auto=compress&cs=tinysrgb&w=600'
+                    : 'https://images.pexels.com/photos/31914072/pexels-photo-31914072.jpeg'
                 }
               />
             ))}
           </div>
-
+          <h2 className='section-heading'>💄 Accessories</h2>
+          <Accessories />
           <h2 className="section-heading">🌟 Featured Products</h2>
           <FeaturedProducts />
         </>

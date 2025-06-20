@@ -1,20 +1,14 @@
 import React from 'react';
+import './FlashSale.css';
 
-const FlashSale = () => {
+const FlashBanner = () => {
   return (
-    <div className="flash-sale-container">
-  <img
-    src="https://t4.ftcdn.net/jpg/04/86/53/23/360_F_486532393_IZOMHnhTFf7d88iDT8YCNAhSq6FRjd5u.jpg"
-    alt="Flash Sale"
-    className="flash-sale-img"
-    
-  />
-  <div className="flash-sale-banner">
-    🔥 Flash Sale is Live Now! Hurry Up! 🔥
-  </div>
-</div>
-
+    <div className="flash-banner-wrapper">
+      <div className="flash-banner-text">
+        🔥 FLASH SALE - UP TO 50% OFF! 🔥 FLASH SALE - UP TO 50% OFF! 🔥 FLASH SALE - UP TO 50% OFF! 🔥
+      </div>
+    </div>
   );
 };
 
-export default FlashSale;
+export default FlashBanner;

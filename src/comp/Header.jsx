@@ -11,8 +11,10 @@ const Header = () => {
   if (hideHeader) return null;
 
   return (
+    
     <header className="header">
       <div className="header-content">
+        
         <Link to="/main" className="logo-link">
           <img src={logo} alt="Nostra Logo" className="logo-image" />
           <h1 className="logo-title">Nostra</h1>

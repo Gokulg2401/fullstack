@@ -81,81 +81,14 @@ body.dark-bg .section-heading {
   border-color: #ff4d6d;
 }
 /*Flash sale*/
-.flash-sale-container {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
 
-.flash-sale-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;       /* Keeps image proportions clean */
-}
-
-.flash-sale-banner {
-  position: absolute;
-  bottom: 8%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(255, 0, 0, 0.9);
-  color: white;
-  padding: 12px 24px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  border-radius: 24px;
-  animation: pulse 1.6s ease-in-out infinite;
-  white-space: nowrap;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: translateX(-50%) scale(1);
-  }
-  50% {
-    transform: translateX(-50%) scale(1.05);
-  }
-}
 /* Category grid */
 .category-container {
   display: flex;
   
-  justify-content: center;
-  gap: 25px;
+  justify-content:space-between;
   margin-top: 30px;
   color:black;
-}
-.category-card {
-  border-radius: 12px;
-  overflow: hidden;
-  width: 280px;
-  height: 320px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  background-color: #fff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: black;
-}
-
-.category-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-}
-
-.category-card img {
-  width: 100%;
-  height: 75%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.category-card h3 {
-  text-align: center;
-  margin: 10px 0;
-  font-size: 22px;
-  color: inherit; /* dark/light mode friendly */
 }
 
  .category-products{
@@ -179,25 +112,56 @@ body.dark-bg .section-heading {
   background: var(--accent-color);
   border-radius: 2px;
 }
+.category-card {
+  width: 100%;
+  max-width: 350px;
+  justify-content: space-between;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 20px auto;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
 
 .category-card:hover {
-  transform: scale(1.05);
-}
-.category-title{
-  border-radius: 5px;
-}
-.category-card img {
-  width: 100%;
-  height: 75%;
-  object-fit: cover;
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(255, 193, 7, 0.4);
 }
 
-.category-card h3 {
-  text-align: center;
-  margin: 10px 0;
-  font-size: 20px;
-  color:black;
+.category-img {
+  width: 100%;
+  height: 400px; /* Fixed height */
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px 12px 0 0;
+  transition: transform 0.3s ease;
+  justify-content:space-between;
 }
+
+
+.category-title {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease;
+}
+
+/* Example light/dark mode CSS variables (adjust in root or body) */
+:root {
+  --card-bg: #f9f9f9;
+  --text-color: #000;
+}
+[data-theme="dark"] {
+  --card-bg: #1e1e1e;
+  --text-color: #fff;
+}
+
 /*product*/
 /* ===== Product List Styles ===== */
 .product-list {
@@ -233,8 +197,8 @@ body.dark-bg .section-heading {
 }
 
 .product-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(255, 193, 7, 0.4);
 }
 
 /* Product Image */
@@ -350,20 +314,8 @@ body.dark-bg .section-heading {
   }
 }
 /*Flash sale*/
-.flash-sale-banner {
-  background-color: #ff4d4f;
-  color: white;
-  text-align: center;
-  display:inline-flexbox;
-  padding: 10px;
-  font-weight: bold;
-  animation: flash 2s infinite;
-}
 
-@keyframes flash {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
+
 /*Toggletheme*/
 .theme-toggle-button {
   position: fixed;
@@ -410,11 +362,19 @@ body.light-bg {
   --toggle-text: #ffffff;
   --toggle-hover: #333333;
 }
+/*Accessories*/
+.acc{
+   font-size: 1.8rem;
+  font-weight: bold;
+  margin: 1.5rem 0 1rem;
+  color: var(--text-color, #111);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
+}
 .category-card,
 .product-card,
-.header,
-.featured-section,
+.header,.accessories-section,
+.featured-products,
 .category-section {
   background-color: var(--card-bg);
   color: var(--text-color);
@@ -424,7 +384,6 @@ body.light-bg {
 .checkout-container {
   background-color: var(--card-bg);
   color:var(--text--color);
- /* Remove shadow */
   transition: background-color 0.3s ease;
 }
 
