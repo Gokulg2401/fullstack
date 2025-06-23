@@ -7,7 +7,7 @@ const FeaturedProducts = () => {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const res = await fetch('https://dummyjson.com/products?limit=5&skip=10');
+        const res = await fetch('https://dummyjson.com/products?limit=6&skip=6');
         const data = await res.json();
         console.log("Fetched featured products:", data.products); // ✅ Confirm fetch
         setFeatured(data.products);

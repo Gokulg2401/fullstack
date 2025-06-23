@@ -94,9 +94,9 @@ body.dark-bg {
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
-  padding: 30px;
+  justify-content:space-evenly;
+  gap: 50px;
+  padding: 30px 20px;
 }
 
 .product-list h2 {
@@ -109,8 +109,10 @@ body.dark-bg {
 
 /* PRODUCT CARD */
 .product-card {
-  width: 250px;
+  width: 300px;
+  max-width: 100%;
   padding: 15px;
+  margin:auto;
   border-radius: 12px;
   background-color: var(--card-bg);
   box-shadow: var(--gold-shadow);
@@ -196,7 +198,7 @@ body.dark-bg {
 /* FEATURED PRODUCTS + ACCESSORIES */
 .featured-products,
 .accessories-section {
-  background-color: var(--card-bg);
+  
   transition: background-color 0.3s ease;
   padding: 20px;
   border-radius: 12px;
