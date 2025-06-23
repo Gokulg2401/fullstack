@@ -5,6 +5,7 @@ import ProductList from '../comp/ProductList';
 import Accessories from '../comp/Accessories';
 import FlashSale from '../comp/FlashSale';
 //Trigger redeploy
+
 const categoryMap = {
     Men: 'mens-shirts',
     Women: 'womens-dresses',
@@ -13,7 +14,10 @@ const categoryMap = {
 function Main() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
-  
+  useEffect(() => {
+  console.log("Main component loaded");
+}, []);
+
   useEffect(() => {
     const fetchProducts = async () => {
       if (!selectedCategory) return;

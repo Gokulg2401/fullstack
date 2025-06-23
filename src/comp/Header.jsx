@@ -1,25 +1,32 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useCart } from './cartContext';
 import './Header.css';
 import Toggletheme from './Toggletheme';
-import logo from '../comp/icon/logo.png'; // Replace with correct relative path
+import logo from '../comp/icon/logo.png'; // Adjust path if needed
 
 const Header = () => {
   const location = useLocation();
-  const hideHeader = location.pathname === '/'; // Hide on landing page
+  const { cartItems } = useCart();
 
-  if (hideHeader) return null;
+  if (location.pathname === '/') return null; // Hide header on landing
 
   return (
-    
     <header className="header">
       <div className="header-content">
-        
         <Link to="/main" className="logo-link">
           <img src={logo} alt="Nostra Logo" className="logo-image" />
           <h1 className="logo-title">Nostra</h1>
         </Link>
-        <Toggletheme />
+
+        <div className="header-right">
+          {/* 🛒 Cart icon appears to the left of toggle button */}
+          <Link to="/cart" className="cart-icon">
+            🛒 <span className="cart-count">{cartItems.length}</span>
+          </Link>
+
+          <Toggletheme />
+        </div>
       </div>
     </header>
   );
