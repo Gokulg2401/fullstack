@@ -166,6 +166,22 @@ body.dark-bg {
 .buy-now-btn:hover {
   background-color: #e60039;
 }
+/*back to top*/
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 1.2rem;
+  background-color:royalblue;
+  color:antiquewhite;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out;
+}
 
 /* SEARCH BAR */
 .search-bar {
@@ -266,20 +282,20 @@ body.dark-bg {
 /* THEME TOGGLE */
 .theme-toggle-button {
   position: fixed;
-  
-  top: 1rem;
-  right: 1rem;
+  top: 1.7rem;             /* Slightly adjusted to match cart icon height */
+  right: 1.2rem;           /* Keep it close to the edge */
   z-index: 1001;
   background-color: var(--toggle-bg);
   color: var(--toggle-text);
   border: none;
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 1rem;    /* Removed unnecessary padding-top */
   border-radius: 25px;
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0,0,0,0.1);
   transition: background-color 0.3s, color 0.3s;
 }
+
 
 .theme-toggle-button:hover {
   background-color: var(--toggle-hover);

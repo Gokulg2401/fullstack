@@ -45,6 +45,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Toggletheme from "./comp/Toggletheme";
 import ProductDetails from "./comp/ProductDetails";
 import Cart from "./comp/Cart";
+import Back from './comp/Back';
 
 const App = () => {
   const location = useLocation();
@@ -69,7 +70,9 @@ const App = () => {
           <>
             <Toggletheme />
             <ToastContainer position="top-center" autoClose={3000} />
+            <Back />
             <Footer />
+
           </>
         )}
       </div>
