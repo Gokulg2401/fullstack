@@ -37,7 +37,6 @@ import Main from "./page/Main";
 import Header from "./comp/Header";
 import Landing from "./comp/Landing";
 import "./Myapp.css";
-import Checkout from "./comp/Checkout";
 import CategoryProducts from "./comp/CategoryProducts";
 import Buynow from "./page/Buynow";
 import Footer from "./comp/Footer";
@@ -62,7 +61,6 @@ const App = () => {
             <Route path="/category/:category" element={<CategoryProducts />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout/:id" element={<Checkout />} />
             <Route path="/buynow" element={<Buynow />} />
           </Routes>
         </div>
