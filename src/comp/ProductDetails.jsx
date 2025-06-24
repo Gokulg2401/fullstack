@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetails.css';
 import {useCart} from '../comp/cartContext';
-
 const ProductDetails = () => {
   const { id } = useParams();
   const {addToCart}=useCart();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
-
   useEffect(() => {
     const fetchProduct = async () => {
       const res = await fetch(`https://dummyjson.com/products/${id}`);
@@ -17,9 +15,7 @@ const ProductDetails = () => {
     };
     fetchProduct();
   }, [id]);
-
   if (!product) return <div>Loading...</div>;
-
   return (
     <div className="product-details-wrapper">
       <h1 className="product-details-title">Product Details 🛍️</h1>
@@ -39,5 +35,4 @@ const ProductDetails = () => {
     </div>
   );
 };
-
 export default ProductDetails;

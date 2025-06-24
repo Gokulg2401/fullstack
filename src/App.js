@@ -46,14 +46,13 @@ import "react-toastify/dist/ReactToastify.css";
 import Toggletheme from "./comp/Toggletheme";
 import ProductDetails from "./comp/ProductDetails";
 import Cart from "./comp/Cart";
-import { CartProvider } from "./comp/cartContext";
 
 const App = () => {
   const location = useLocation();
   const isInitialPage = location.pathname === "/";
 
   return (
-    <CartProvider>
+    
       <div className="app-container">
         <Header />
         <div className="page-content">
@@ -76,7 +75,7 @@ const App = () => {
           </>
         )}
       </div>
-    </CartProvider>
+    
   );
 };
 
