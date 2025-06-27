@@ -5,7 +5,7 @@ class Main {
     int age=25;
     float salary=25000.45f;
     public void show(){
-        int no=45;
+        int no=60;
         System.out.println(age);
         System.out.println(salary);
         System.out.println(no);

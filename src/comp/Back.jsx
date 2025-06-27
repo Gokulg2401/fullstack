@@ -5,7 +5,7 @@ const BackToTopButton = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      setVisible(window.scrollY > 300);
+      setVisible(window.scrollY > 700);
     };
 
     window.addEventListener("scroll", toggleVisibility);
@@ -19,7 +19,7 @@ const BackToTopButton = () => {
   return (
     visible && (
       <button className="back-to-top" onClick={scrollToTop}>
-        ⬆️ Go to Top
+        Go to Top
       </button>
     )
   );
