@@ -19,7 +19,6 @@ const ProductDetails = () => {
   return (
     <div className="product-details-wrapper">
       <h1 className="product-details-title">Product Details 🛍️</h1>
-
       <div className="product-detail-card">
         <img src={product.thumbnail} alt={product.title} />
         <h2>{product.title}</h2>

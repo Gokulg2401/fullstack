@@ -55,6 +55,7 @@ const App = () => {
     
       <div className="app-container">
         <Header />
+         <Toggletheme />
         <div className="page-content">
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -68,7 +69,7 @@ const App = () => {
 
         {!isInitialPage && (
           <>
-            <Toggletheme />
+            
             <ToastContainer position="top-center" autoClose={3000} />
             <Back />
             <Footer />

@@ -79,6 +79,7 @@ body.dark-bg {
 
 .category-card:hover {
   transform: translateY(-10px) scale(1.03);
+  cursor:pointer;
 }
 
 
@@ -125,9 +126,8 @@ body.dark-bg {
   color: inherit;
 }
 
-
 .product-card:hover {
-  transform: scale(1.05);
+ transform: translateY(-10px) scale(1.03);
 }
 
 /* PRODUCT IMAGE */

@@ -15,10 +15,10 @@ const ProductList = ({ products }) => {
             <h4 className="card-title">{item.title}</h4>
             <p>💲{item.price}</p>
             <p>⭐ {item.rating}</p>
-            <p>✅ {item.availabilityStatus}</p>
+            <p>✅ {item.stock > 3 ? 'In Stock' : 'Low Stock'}</p>
           </Link>
           <Link to={`/product/${item.id}`}>
-            <button className="check">View Details</button>
+            <button className="check">Show Info</button>
           </Link>
         </div>
       ))}
