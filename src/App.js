@@ -1,4 +1,4 @@
-// // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+ //import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // // import './App.css';
 // // import Button from './components/Button.js';
 // // //import Home from './pages/Home.js';
@@ -46,6 +46,7 @@ import Toggletheme from "./comp/Toggletheme";
 import ProductDetails from "./comp/ProductDetails";
 import Cart from "./comp/Cart";
 import Back from './comp/Back';
+//import Login from './comp/Login';
 
 const App = () => {
   const location = useLocation();
@@ -55,7 +56,9 @@ const App = () => {
     
       <div className="app-container">
         <Header />
-         <Toggletheme />
+        <Toggletheme />
+        {/* <Login /> */}
+
         <div className="page-content">
           <Routes>
             <Route path="/" element={<Landing />} />
