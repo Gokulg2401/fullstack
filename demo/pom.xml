@@ -70,6 +70,13 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+        <!-- Jakarta Persistence API (for @Entity, @Id, etc.) -->
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
 
         <!-- Testing -->
         <dependency>
@@ -84,9 +91,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <relase>21</relase>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
