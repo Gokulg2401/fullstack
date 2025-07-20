@@ -1,41 +1,62 @@
 package com.gklproject.demo.controller;
 
-import com.gklproject.demo.model.User;
-import com.gklproject.demo.repository.UserRepository;
-import com.gklproject.demo.security.JWTUtil;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
-
+import com.gklproject.demo.dto.UserDTO;
+import com.gklproject.demo.entity.User;
+import com.gklproject.demo.repository.UserRepository;
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
 public class AuthController {
 
     @Autowired
-    private UserRepository userRepo;
+    private UserRepository userRepository;
 
     @Autowired
-    private JWTUtil jwtUtil;
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        if (userRepo.findByEmail(user.getEmail()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists!");
+    public ResponseEntity<Map<String, Object>> register(@RequestBody UserDTO userDTO) {
+        Map<String, Object> resp = new HashMap<>();
+        if (userRepository.findByEmail(userDTO.getEmail()) != null) {
+            resp.put("success", false);
+            resp.put("message", "Email already exists");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(resp);
         }
-        userRepo.save(user);
-        return ResponseEntity.ok("User registered successfully");
+        User user = new User();
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userRepository.save(user);
+
+        resp.put("success", true);
+        resp.put("message", "Registration successful");
+        return ResponseEntity.ok(resp);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User loginReq) {
-        Optional<User> optionalUser = userRepo.findByEmail(loginReq.getEmail());
-        if (optionalUser.isEmpty() || !optionalUser.get().getPassword().equals(loginReq.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+    public ResponseEntity<Map<String, Object>> login(@RequestBody UserDTO userDTO) {
+        Map<String, Object> resp = new HashMap<>();
+        User user = userRepository.findByEmail(userDTO.getEmail());
+        if (user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
+            resp.put("success", true);
+            resp.put("message", "Login successful");
+            return ResponseEntity.ok(resp);
         }
-        String token = jwtUtil.generateToken(loginReq.getEmail());
-        return ResponseEntity.ok(Map.of("token", token));
+        resp.put("success", false);
+        resp.put("message", "Invalid credentials");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resp);
     }
 }

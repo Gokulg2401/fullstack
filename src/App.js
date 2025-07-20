@@ -46,8 +46,8 @@ import Toggletheme from "./comp/Toggletheme";
 import ProductDetails from "./comp/ProductDetails";
 import Cart from "./comp/Cart";
 import Back from './comp/Back';
-//import Login from './comp/Login';
-
+import Login from './comp/Login';
+import Register from "./comp/Register";
 const App = () => {
   const location = useLocation();
   const isInitialPage = location.pathname === "/";
@@ -57,11 +57,12 @@ const App = () => {
       <div className="app-container">
         <Header />
         <Toggletheme />
-        {/* <Login /> */}
 
         <div className="page-content">
           <Routes>
-            <Route path="/" element={<Landing />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/landing" element={<Landing />} />
             <Route path="/main" element={<Main />} />
             <Route path="/category/:category" element={<CategoryProducts />} />
             <Route path="/product/:id" element={<ProductDetails />} />
@@ -76,6 +77,7 @@ const App = () => {
             <ToastContainer position="top-center" autoClose={3000} />
             <Back />
             <Footer />
+            
 
           </>
         )}

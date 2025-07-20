@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import './Login.css';
+import './Register.css';
 
-const Login = () => {
+const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
 
   const handleChange = (e) => {
@@ -12,54 +11,60 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', form);
-      if (response.data.success) {
-        alert('Login successful!');
-        // navigate to main page or landing
+      const res = await fetch('http://localhost:8080/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        alert('Registration successful!');
+        // Redirect to login page if needed
       } else {
-        alert(response.data.message || 'Login failed');
+        alert(data.message || 'Registration failed');
       }
     } catch (err) {
       console.error(err);
-      alert('Server error during login');
+      alert('Error connecting to server');
     }
   };
 
   return (
-    <div className="login-box">
-      <h2 className="login-heading">Login</h2>
-      <form className="login-form" onSubmit={handleSubmit}>
+    <div className="register-container">
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit}>
         <input
-          type="text"
           name="name"
+          type="text"
           placeholder="Name"
           value={form.name}
           onChange={handleChange}
           required
         />
         <input
-          type="email"
           name="email"
+          type="email"
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
           required
         />
         <input
-          type="password"
           name="password"
+          type="password"
           placeholder="Password"
           value={form.password}
           onChange={handleChange}
           required
         />
-        <button type="submit" className="login-button">Login</button>
-        <p className="register-link">
-          Don't have an account? <a href="/register">Register</a>
-        </p>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
