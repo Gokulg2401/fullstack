@@ -64,6 +64,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Jakarta Annotation API for @PostConstruct, @PreDestroy -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+
         <!-- Devtools for live reload -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

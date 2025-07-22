@@ -51,11 +51,16 @@ import Register from "./comp/Register";
 const App = () => {
   const location = useLocation();
   const isInitialPage = location.pathname === "/";
+  const isLandingPage = location.pathname === "/landing";
+  const isRegisterPage = location.pathname === "/register";
+  
+  // Pages that should only show toggle theme (no header/footer)
+  const isMinimalLayout = isLandingPage || isRegisterPage;
 
   return (
     
       <div className="app-container">
-        <Header />
+        {!isMinimalLayout && <Header />}
         <Toggletheme />
 
         <div className="page-content">
@@ -71,7 +76,7 @@ const App = () => {
           </Routes>
         </div>
 
-        {!isInitialPage && (
+        {!isInitialPage && !isMinimalLayout && (
           <>
             
             <ToastContainer position="top-center" autoClose={3000} />

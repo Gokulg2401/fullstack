@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 
 const Login = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -15,7 +17,7 @@ const Login = () => {
       const response = await axios.post('http://localhost:8080/api/auth/login', form);
       if (response.data.success) {
         alert('Login successful!');
-        // navigate to main page or landing
+        navigate('/landing'); // Navigate to landing page
       } else {
         alert(response.data.message || 'Login failed');
       }

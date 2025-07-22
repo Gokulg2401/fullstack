@@ -25,7 +25,7 @@
   font-size: 30px;
   margin: 0 10px;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.5s ease;
 }
 
 .footer-icons a:hover {
