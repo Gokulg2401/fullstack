@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './Login.css';
 
 const Login = () => {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '' });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -13,17 +13,29 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', form);
-      if (response.data.success) {
+      const res = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
         alert('Login successful!');
-        navigate('/landing'); // Navigate to landing page
+        navigate('/landing');
       } else {
-        alert(response.data.message || 'Login failed');
+        // Handles both 401 and custom API error
+        alert(data.message || 'Login failed');
       }
     } catch (err) {
       console.error(err);
       alert('Server error during login');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -31,8 +43,8 @@ const Login = () => {
     <div className="login-box">
       <h2 className="login-heading">Login</h2>
       <form className="login-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
+      <input
+          type="name"
           name="name"
           placeholder="Name"
           value={form.name}
@@ -55,7 +67,9 @@ const Login = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit" className="login-button">Login</button>
+        <button type="submit" className="login-button" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
         <p className="register-link">
           Don't have an account? <a href="/register">Register</a>
         </p>

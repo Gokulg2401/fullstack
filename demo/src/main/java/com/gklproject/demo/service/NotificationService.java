@@ -35,7 +35,7 @@ public class NotificationService {
     private final EmailService secondaryEmailService;
     
     // Constructor injection - Spring will call this constructor and provide dependencies
-    @Autowired
+    // @Autowired is optional on constructors when there's only one constructor (Spring 4.3+)
     public NotificationService(@Qualifier("outlookService") EmailService secondaryEmailService) {
         this.secondaryEmailService = secondaryEmailService;
         System.out.println("🏗️  NotificationService created by Spring IoC Container");

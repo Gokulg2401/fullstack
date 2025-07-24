@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .requestMatchers("/h2-console/**").permitAll() // Allow H2 console access
                 .anyRequest().authenticated() // Require authentication for other endpoints
             )
-            .headers(headers -> headers.frameOptions().disable()); // Allow H2 console frames
+            .headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable())); // Allow H2 console frames
 
         return http.build();
     }
