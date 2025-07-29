@@ -5,11 +5,13 @@ class Bank{
     }
 }
 class CUB extends Bank{
+    @Override
     int rate(){
         return 50;
     }
 }
 class Axis extends Bank{
+    @Override
     int rate(){
         return 70;
     }

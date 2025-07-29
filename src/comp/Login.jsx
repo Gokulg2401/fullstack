@@ -46,7 +46,7 @@ const Login = () => {
       <input
           type="name"
           name="name"
-          placeholder="Name"
+          placeholder="Enter your Name"
           value={form.name}
           onChange={handleChange}
           required
@@ -54,7 +54,7 @@ const Login = () => {
         <input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder="Enter your Email id "
           value={form.email}
           onChange={handleChange}
           required
@@ -62,7 +62,7 @@ const Login = () => {
         <input
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder="Enter your Password"
           value={form.password}
           onChange={handleChange}
           required

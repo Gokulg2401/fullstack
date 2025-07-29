@@ -15,14 +15,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Disable CSRF for API endpoints
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/api/auth/**").permitAll() // Allow auth endpoints without authentication
-                .requestMatchers("/h2-console/**").permitAll() // Allow H2 console access
-                .anyRequest().authenticated() // Require authentication for other endpoints
+                // Allows anyone to access the frontend app shell and assets
+                .requestMatchers("/", "/index.html", "/static/**", "/css/**", "/js/**", "/assets/**", "/favicon.ico").permitAll()
+                // Allows unauthenticated access to login and register
+                .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
+                // Everything else
+                .anyRequest().authenticated()
             )
-            .headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable())); // Allow H2 console frames
-
+            .headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()));
         return http.build();
     }
 
@@ -31,3 +33,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
