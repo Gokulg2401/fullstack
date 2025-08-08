@@ -1,26 +1,21 @@
-git branch: 'main', credentialsId: '28b28bd1-7fe5-4556-bf9a-484cfc6d1e05', url: 'https://github.com/Gokulg2401/Reactproject.git'
-
-
 pipeline {
     agent any
 
     environment {
-        // Customize as needed
         PORT = '8080'
-        REACT_APP_API_URL = "http://localhost:3000/api" 
+        REACT_APP_API_URL = "http://localhost:${PORT}/api"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Pull code from GitHub using stored credentials
-                git branch: 'main', credentialsId: 'github-pat', url: 'https://github.com/Gokulg2401/Reactproject'
+                // Use the correct credentials to fetch the repo
+                git branch: 'main', credentialsId: '28b28bd1-7fe5-4556-bf9a-484cfc6d1e05', url: 'https://github.com/Gokulg2401/Reactproject.git'
             }
         }
-
         stage('Build Frontend') {
             steps {
-                dir('src/comp') {  // Update with your frontend path
+                dir('src/comp') {
                     sh '''
                     npm install
                     npm run build
@@ -28,39 +23,33 @@ pipeline {
                 }
             }
         }
-
         stage('Build Backend and Copy Frontend') {
             steps {
-                // Copy React build to backend static resources folder
-                sh 'cp -r src/comp* demo/src/main/java/com/gklproject/demo'
-
-                dir('demo/src/main/java/com/gklproject/demo') {  // Update with your backend directory
+                // Copy the React build to Spring Boot static folder
+                sh 'cp -r src/comp/build/* demo/src/main/resources/static/'
+                dir('demo') {
                     sh './mvnw clean package'
                 }
             }
         }
-
         stage('Deploy') {
             steps {
                 sh '''
-                # Stop any existing Spring Boot app
                 pkill -f "java -jar" || true
-
-                # Find the jar file built and run it in background
-                JAR_FILE=$(ls target/*.jar | head -n 1)
-                nohup java -jar "$JAR_FILE" > app.log 2>&1 &
+                JAR_NAME=$(ls demo/target/*.jar | head -n 1)
+                nohup java -jar "$JAR_NAME" > app.log 2>&1 &
                 '''
             }
         }
     }
-
     post {
         success {
-            echo 'Build and deployment completed successfully.'
-            echo "Access your app at: http://${env.JENKINS_SERVER_IP ?: '<your-aws-server-ip>'}:${env.PORT}"
+            echo 'Build and deployment succeeded!'
+            echo "Your app should be available at: http://<your-aws-public-ip>:8080"
         }
         failure {
-            echo 'Build or deployment failed. Check logs for details.'
+            echo 'Build or deployment failed. Check logs above for details.'
         }
     }
 }
+
