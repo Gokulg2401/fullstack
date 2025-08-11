@@ -51,11 +51,12 @@ import Register from "./comp/Register";
 const App = () => {
   const location = useLocation();
   const isInitialPage = location.pathname === "/";
+  const isLoginPage = location.pathname === "/" || location.pathname === "/login";
   const isLandingPage = location.pathname === "/landing";
   const isRegisterPage = location.pathname === "/register";
   
   // Pages that should only show toggle theme (no header/footer)
-  const isMinimalLayout = isLandingPage || isRegisterPage;
+  const isMinimalLayout = isLandingPage || isRegisterPage || isLoginPage;
 
   return (
     
@@ -66,6 +67,7 @@ const App = () => {
         <div className="page-content">
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/landing" element={<Landing />} />
             <Route path="/main" element={<Main />} />

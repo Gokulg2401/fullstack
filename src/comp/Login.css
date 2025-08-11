@@ -73,7 +73,6 @@ body.dark .login-container {
 }
 
 body.dark .login-container h2,
-body.dark .login-form input,
 body.dark .register-link {
   color: #fff;
 }
@@ -82,6 +81,12 @@ body.dark .login-form input {
   background: #444;
   border: 1px solid #555;
   color: #fff;
+}
+
+body.dark .login-button {
+  background: #444;
+  border: 1px solid #555;
+  color: white;
 }
 
 /* Focus styles */
