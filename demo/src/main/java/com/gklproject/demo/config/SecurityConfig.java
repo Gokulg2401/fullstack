@@ -15,21 +15,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(request -> {
-                var corsConfig = new org.springframework.web.cors.CorsConfiguration();
-                corsConfig.setAllowedOrigins(java.util.Arrays.asList(
-                    "http://localhost:3000",
-                    "https://react-project-git-main-gokuls-projects-f01af370.vercel.app",
-                    "https://demo-blush-ten-86.vercel.app",
-                    "https://react-project-inky-two.vercel.app"
-                ));
-                corsConfig.setAllowedMethods(java.util.Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-                corsConfig.setAllowedHeaders(java.util.Arrays.asList("*"));
-                corsConfig.setExposedHeaders(java.util.Arrays.asList("Authorization", "Content-Type", "Set-Cookie"));
-                corsConfig.setAllowCredentials(true);
-                corsConfig.setMaxAge(3600L);
-                return corsConfig;
-            }))
+.cors(cors -> cors.disable())
             .csrf(csrf -> csrf.disable()) // Disable CSRF for API endpoints
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers(
