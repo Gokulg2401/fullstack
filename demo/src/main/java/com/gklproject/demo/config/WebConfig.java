@@ -10,9 +10,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(@NonNull CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("*")
+                .allowedOrigins("http://localhost:3000", "https://react-project-git-main-gokuls-projects-f01af370.vercel.app")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowCredentials(false); // use true only if backend uses cookies/sessions
+                .allowCredentials(true); // Enable credentials for cookies/sessions
     }
 }
