@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { mockApi } from '../services/mockApi';
 import './Register.css';
 
 const Register = () => {
@@ -22,35 +23,41 @@ const Register = () => {
       const apiUrl = `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/auth/register`;
       console.log('Attempting to register at:', apiUrl);
       
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          password: form.password
-        })
-      });
-
-      console.log('Registration response status:', response.status);
-      
-      // Handle non-JSON responses
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        const text = await response.text();
-        console.error('Non-JSON response:', text);
-        throw new Error('Invalid response from server');
+      let response;
+      try {
+        response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            password: form.password
+          })
+        });
+      } catch (fetchError) {
+        console.log('Backend unavailable, using mock API');
+        response = await mockApi.register({ name: form.name, email: form.email, password: form.password });
       }
 
-      const data = await response.json();
+      let data;
+      if (response.json) {
+        data = await response.json();
+      } else {
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          const text = await response.text();
+          throw new Error('Invalid response from server');
+        }
+        data = await response.json();
+      }
       console.log('Registration response data:', data);
 
-      if (!response.ok) {
-        throw new Error(data.message || `Registration failed with status ${response.status}`);
+      if (response.ok === false) {
+        throw new Error(data.message || 'Registration failed');
       }
 
       // Redirect to login page on successful registration

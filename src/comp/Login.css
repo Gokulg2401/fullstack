@@ -1,54 +1,61 @@
-.login-box {
+.login-container {
   max-width: 400px;
-  margin: 80px auto;
-  padding: 30px;
-  border-radius: 12px;
-  background-color: var(--background, #fff);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin: 40px auto;
+  padding: 25px;
+  background: var(--bg-color, #f9f9f9);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
-.login-heading {
+.login-container h2 {
   text-align: center;
+  color: var(--text-color, #222);
   margin-bottom: 20px;
-  color: var(--text, #000);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .login-form input {
-  width: 100%;
   padding: 12px;
-  margin: 10px 0;
-  border: 1px solid var(--border-color, #ccc);
+  font-size: 16px;
   border-radius: 6px;
-  background-color: var(--input-bg, #fff);
-  color: var(--text, #000);
+  border: 1px solid #ccc;
+  background: var(--input-bg, #fff);
+  color: var(--text-color, #222);
   transition: all 0.3s ease;
 }
 
 .login-button {
-  width: 100%;
+  background-color: #4CAF50;
+  color: white;
   padding: 12px;
-  background-color: #007bff;
-  color: #fff;
+  font-size: 16px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 10px;
 }
 
 .login-button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
 }
 
 .register-link {
   margin-top: 15px;
   text-align: center;
   font-size: 0.95em;
-  color: var(--text, #fff);
+  color: var(--text-color, #333);
   transition: color 0.3s ease;
 }
 
 .register-link a {
-  color: var(--link-color, #64b5f6);
+  color: #4CAF50;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
@@ -56,31 +63,43 @@
 
 .register-link a:hover {
   text-decoration: underline;
+  color: #45a049;
 }
 
-/* Optional dark mode variables */
-body.dark-mode {
-  --background: #1e1e1e;
-  --text: #e0e0e0;
-  --border-color: #444;
-  --input-bg: #2d2d2d;
-  --link-color: #64b5f6;
+/* Dark mode styles */
+body.dark .login-container {
+  background: #333;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Ensure text is visible in dark mode */
-@media (prefers-color-scheme: dark) {
-  body:not(.light-mode) {
-    --background: #1e1e1e;
-    --text: #e0e0e0;
-    --border-color: #444;
-    --input-bg: #2d2d2d;
-    --link-color: #64b5f6;
-  }
+body.dark .login-container h2,
+body.dark .login-form input,
+body.dark .register-link {
+  color: #fff;
 }
 
-/* Add focus styles for better accessibility */
+body.dark .login-form input {
+  background: #444;
+  border: 1px solid #555;
+  color: #fff;
+}
+
+/* Focus styles */
 input:focus {
   outline: none;
-  border-color: var(--link-color, #007bff);
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .login-container {
+    margin: 20px 15px;
+    padding: 20px 15px;
+  }
+  
+  .login-form input,
+  .login-button {
+    padding: 10px;
+  }
 }

@@ -9,10 +9,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(@NonNull CorsRegistry registry) {
-        registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:3000", "https://react-project-git-main-gokuls-projects-f01af370.vercel.app")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        registry.addMapping("/**")
+                .allowedOrigins(
+                    "http://localhost:3000",
+                    "https://react-project-git-main-gokuls-projects-f01af370.vercel.app",
+                    "https://demo-blush-ten-86.vercel.app",
+                    "https://react-project-inky-two.vercel.app"
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .allowedHeaders("*")
-                .allowCredentials(true); // Enable credentials for cookies/sessions
+                .exposedHeaders("Authorization", "Content-Type", "Set-Cookie")
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 }

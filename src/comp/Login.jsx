@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { mockApi } from '../services/mockApi';
 import './Login.css';
 
 const Login = () => {
@@ -19,54 +20,65 @@ const Login = () => {
     setError('');
     
     try {
+      // Get the current environment's API URL
       const apiUrl = `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/auth/login`;
-      console.log('Attempting to login to:', apiUrl);
+      console.log('Environment:', process.env.NODE_ENV);
+      console.log('API URL:', apiUrl);
       
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        credentials: 'include', // Important for cookies/sessions
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          password: form.password
-        })
-      });
+      // Try real API first, fallback to mock
+      let response;
+      try {
+        response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            email: form.email,
+            password: form.password
+          })
+        });
+      } catch (fetchError) {
+        console.log('Backend unavailable, using mock API');
+        response = await mockApi.login({ email: form.email, password: form.password });
+      }
 
-      console.log('Login response status:', response.status);
-      
-      // Handle non-JSON responses
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
+      let data;
+      if (response.json) {
+        data = await response.json();
+      } else {
         const text = await response.text();
-        console.error('Non-JSON response:', text);
-        throw new Error('Invalid response from server');
+        data = text ? JSON.parse(text) : {};
       }
 
-      const data = await response.json();
-      console.log('Login response data:', data);
-
-      if (!response.ok) {
-        throw new Error(data.message || `Login failed with status ${response.status}`);
+      if (response.ok === false) {
+        throw new Error(data.message || 'Login failed');
       }
 
-      // Store the token if your backend returns one
       if (data.token) {
         localStorage.setItem('token', data.token);
+        navigate('/landing');
+      } else {
+        throw new Error('Login successful but no token received');
       }
       
-      // Redirect to dashboard or home page
-      navigate('/landing');
-      
     } catch (err) {
-      console.error('Login Error:', err);
+      console.error('Login Error:', {
+        error: err,
+        message: err.message,
+        stack: err.stack
+      });
+      
       let errorMessage = 'Failed to login. Please check your credentials and try again.';
       
-      if (err.message.includes('Failed to fetch')) {
-        errorMessage = 'Unable to connect to the server. Please check your internet connection or try again later.';
+      if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+        errorMessage = 'Unable to connect to the server. Please check:';
+        errorMessage += '\n• Your internet connection';
+        errorMessage += '\n• The backend server is running';
+        errorMessage += '\n• The API URL is correct';
+        errorMessage += `\n\nCurrent API URL: ${process.env.REACT_APP_API_URL || 'Not set'}`;
       } else if (err.message) {
         errorMessage = err.message;
       }
@@ -78,53 +90,28 @@ const Login = () => {
   };
 
   return (
-    <div className="login-box">
-      <h2 className="login-heading">Login</h2>
-      {error && <div className="error-message" style={{ color: 'red', marginBottom: '10px', textAlign: 'center' }}>{error}</div>}
+    <div className="login-container">
+      <h2>Login</h2>
+      {error && <div className="error-message" style={{ color: 'red', marginBottom: '15px', textAlign: 'center' }}>{error}</div>}
       <form className="login-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter your Name"
-          value={form.name}
-          onChange={handleChange}
-          disabled={loading}
-          required
-        />
         <input
           type="email"
           name="email"
-          placeholder="Enter your Email"
+          placeholder="Email"
           value={form.email}
           onChange={handleChange}
-          disabled={loading}
           required
         />
         <input
           type="password"
           name="password"
-          placeholder="Enter your Password"
+          placeholder="Password"
           value={form.password}
           onChange={handleChange}
-          disabled={loading}
           required
         />
-        <button 
-          type="submit" 
-          className="login-button" 
-          disabled={loading}
-          style={{
-            backgroundColor: loading ? '#ccc' : '#4CAF50',
-            cursor: loading ? 'not-allowed' : 'pointer'
-          }}
-        >
-          {loading ? (
-            <>
-              <span className="spinner"></span> Logging in...
-            </>
-          ) : (
-            'Login'
-          )}
+        <button type="submit" className="login-button" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
         </button>
         <p className="register-link">
           Don't have an account? <a href="/register" className="register-link-text">Register</a>
