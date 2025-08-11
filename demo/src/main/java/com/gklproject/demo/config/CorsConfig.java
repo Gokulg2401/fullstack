@@ -18,7 +18,8 @@ public class CorsConfig {
                         .allowedOrigins(
                             "http://localhost:3000", 
                             "https://react-project-git-main-gokuls-projects-f01af370.vercel.app",
-                            "https://demo-blush-ten-86.vercel.app"
+                            "https://demo-blush-ten-86.vercel.app",
+                            "https://react-project-inky-two.vercel.app"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                         .allowedHeaders("*")

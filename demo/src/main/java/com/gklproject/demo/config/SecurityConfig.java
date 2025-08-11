@@ -20,7 +20,8 @@ public class SecurityConfig {
                 corsConfig.setAllowedOrigins(java.util.Arrays.asList(
                     "http://localhost:3000",
                     "https://react-project-git-main-gokuls-projects-f01af370.vercel.app",
-                    "https://demo-blush-ten-86.vercel.app"
+                    "https://demo-blush-ten-86.vercel.app",
+                    "https://react-project-inky-two.vercel.app"
                 ));
                 corsConfig.setAllowedMethods(java.util.Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
                 corsConfig.setAllowedHeaders(java.util.Arrays.asList("*"));
