@@ -51,6 +51,12 @@ public class AuthController {
         if (user != null && passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
             resp.put("success", true);
             resp.put("message", "Login successful");
+            resp.put("token", "jwt-token-" + System.currentTimeMillis());
+            resp.put("user", Map.of(
+                "id", user.getId(),
+                "name", user.getName(),
+                "email", user.getEmail()
+            ));
             return ResponseEntity.ok(resp);
         }
         resp.put("success", false);

@@ -36,13 +36,14 @@ const Login = () => {
           },
           credentials: 'include',
           body: JSON.stringify({
+            name: form.name,
             email: form.email,
             password: form.password
           })
         });
       } catch (fetchError) {
         console.log('Backend unavailable, using mock API');
-        response = await mockApi.login({ email: form.email, password: form.password });
+        response = await mockApi.login({ name: form.name, email: form.email, password: form.password });
       }
 
       let data;
@@ -94,6 +95,14 @@ const Login = () => {
       <h2>Login</h2>
       {error && <div className="error-message" style={{ color: 'red', marginBottom: '15px', textAlign: 'center' }}>{error}</div>}
       <form className="login-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
         <input
           type="email"
           name="email"
