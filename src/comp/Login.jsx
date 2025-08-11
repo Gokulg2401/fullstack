@@ -55,21 +55,15 @@ const Login = () => {
   return (
     <div className="login-box">
       <h2 className="login-heading">Login</h2>
+      {error && <div className="error-message" style={{ color: 'red', marginBottom: '10px', textAlign: 'center' }}>{error}</div>}
       <form className="login-form" onSubmit={handleSubmit}>
-      <input
-          type="name"
-          name="name"
-          placeholder="Enter your Name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
         <input
           type="email"
           name="email"
-          placeholder="Enter your Email id "
+          placeholder="Enter your Email"
           value={form.email}
           onChange={handleChange}
+          disabled={loading}
           required
         />
         <input
@@ -78,10 +72,25 @@ const Login = () => {
           placeholder="Enter your Password"
           value={form.password}
           onChange={handleChange}
+          disabled={loading}
           required
         />
-        <button type="submit" className="login-button" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
+        <button 
+          type="submit" 
+          className="login-button" 
+          disabled={loading}
+          style={{
+            backgroundColor: loading ? '#ccc' : '#4CAF50',
+            cursor: loading ? 'not-allowed' : 'pointer'
+          }}
+        >
+          {loading ? (
+            <>
+              <span className="spinner"></span> Logging in...
+            </>
+          ) : (
+            'Login'
+          )}
         </button>
         <p className="register-link">
           Don't have an account? <a href="/register">Register</a>

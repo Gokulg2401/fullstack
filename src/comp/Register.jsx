@@ -51,6 +51,7 @@ const Register = () => {
   return (
     <div className="register-container">
       <h2>Register</h2>
+      {error && <div className="error-message" style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
       <form onSubmit={handleSubmit}>
         <input
           name="name"
@@ -58,6 +59,7 @@ const Register = () => {
           placeholder="Name"
           value={form.name}
           onChange={handleChange}
+          disabled={loading}
           required
         />
         <input
@@ -66,6 +68,7 @@ const Register = () => {
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
+          disabled={loading}
           required
         />
         <input
@@ -74,10 +77,24 @@ const Register = () => {
           placeholder="Password"
           value={form.password}
           onChange={handleChange}
+          disabled={loading}
           required
         />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Registering...' : 'Register'}
+        <button 
+          type="submit" 
+          disabled={loading}
+          style={{
+            backgroundColor: loading ? '#ccc' : '#4CAF50',
+            cursor: loading ? 'not-allowed' : 'pointer'
+          }}
+        >
+          {loading ? (
+            <>
+              <span className="spinner"></span> Registering...
+            </>
+          ) : (
+            'Register'
+          )}
         </button>
       </form>
     </div>
