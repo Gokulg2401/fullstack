@@ -32,9 +32,13 @@ const Register = () => {
         alert(data.message || 'Registration failed');
       }
     } catch (err) {
-      // Handle network or unexpected errors
-      console.error(err);
-      alert('Error connecting to server');
+      console.error('Registration Error:', err);
+      if (err.name === 'TypeError' && err.message.includes('Failed to fetch')) {
+        alert('Cannot connect to the server. Please check your internet connection and ensure the backend is running.');
+        console.log('Attempted URL:', `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/auth/register`);
+      } else {
+        alert(`Registration failed: ${err.message || 'Unknown error occurred'}`);
+      }
     } finally {
       setLoading(false);
     }

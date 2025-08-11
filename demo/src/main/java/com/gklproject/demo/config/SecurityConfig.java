@@ -15,13 +15,29 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+            .cors(cors -> cors.configurationSource(request -> {
+                var corsConfig = new org.springframework.web.cors.CorsConfiguration();
+                corsConfig.setAllowedOrigins(java.util.Arrays.asList(
+                    "http://localhost:3000", 
+                    "https://react-project-git-main-gokuls-projects-f01af370.vercel.app"
+                ));
+                corsConfig.setAllowedMethods(java.util.Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                corsConfig.setAllowedHeaders(java.util.Arrays.asList("*"));
+                corsConfig.setAllowCredentials(true);
+                return corsConfig;
+            }))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
-                // Allows anyone to access the frontend app shell and assets
-                .requestMatchers("/", "/index.html", "/static/**", "/css/**", "/js/**", "/assets/**", "/favicon.ico").permitAll()
-                // Allows unauthenticated access to login and register
-                .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
-                // Everything else
+                .requestMatchers(
+                    "/", 
+                    "/index.html", 
+                    "/static/**", 
+                    "/css/**", 
+                    "/js/**", 
+                    "/assets/**", 
+                    "/favicon.ico",
+                    "/api/auth/**"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()));

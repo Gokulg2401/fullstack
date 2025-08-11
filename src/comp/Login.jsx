@@ -32,8 +32,13 @@ const Login = () => {
         alert(data.message || 'Login failed');
       }
     } catch (err) {
-      console.error(err);
-      alert('Server error during login');
+      console.error('Login Error:', err);
+      if (err.name === 'TypeError' && err.message.includes('Failed to fetch')) {
+        alert('Cannot connect to the server. Please check your internet connection and ensure the backend is running.');
+        console.log('Attempted URL:', `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/auth/login`);
+      } else {
+        alert(`Login failed: ${err.message || 'Unknown error occurred'}`);
+      }
     } finally {
       setLoading(false);
     }
