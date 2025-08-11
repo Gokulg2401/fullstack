@@ -1,44 +1,48 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Register.css';
 
 const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setError(''); // Clear error when user types
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
+    
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/auth/register`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        // credentials: 'include', // only needed if using sessions/cookies
-        body: JSON.stringify(form),
+        credentials: 'include', // Important for cookies/sessions
+        body: JSON.stringify(form)
       });
 
-      const data = await res.json();
+      const data = await response.json();
 
-      if (res.ok && data.success) {
-        alert('Registration successful!');
-        // Optionally redirect here: window.location.href = "/login";
-      } else {
-        // Handle API errors (like duplicate email)
-        alert(data.message || 'Registration failed');
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
       }
+
+      // Redirect to login page on successful registration
+      alert('Registration successful! Please login with your credentials.');
+      navigate('/login');
+      
     } catch (err) {
       console.error('Registration Error:', err);
-      if (err.name === 'TypeError' && err.message.includes('Failed to fetch')) {
-        alert('Cannot connect to the server. Please check your internet connection and ensure the backend is running.');
-        console.log('Attempted URL:', `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/auth/register`);
-      } else {
-        alert(`Registration failed: ${err.message || 'Unknown error occurred'}`);
-      }
+      const errorMessage = err.message || 'Failed to register. Please try again.';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

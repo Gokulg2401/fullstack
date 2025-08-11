@@ -5,40 +5,48 @@ import './Login.css';
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setError(''); // Clear error when user types
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
+    
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/auth/login`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        body: JSON.stringify(form),
+        credentials: 'include', // Important for cookies/sessions
+        body: JSON.stringify(form)
       });
-      const data = await res.json();
 
-      if (res.ok && data.success) {
-        alert('Login successful!');
-        navigate('/landing');
-      } else {
-        // Handles both 401 and custom API error
-        alert(data.message || 'Login failed');
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
       }
+
+      // Store the token if your backend returns one
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
+      
+      // Redirect to dashboard or home page
+      navigate('/landing');
+      
     } catch (err) {
       console.error('Login Error:', err);
-      if (err.name === 'TypeError' && err.message.includes('Failed to fetch')) {
-        alert('Cannot connect to the server. Please check your internet connection and ensure the backend is running.');
-        console.log('Attempted URL:', `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/auth/login`);
-      } else {
-        alert(`Login failed: ${err.message || 'Unknown error occurred'}`);
-      }
+      const errorMessage = err.message || 'Failed to login. Please check your credentials and try again.';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
