@@ -78,9 +78,15 @@ body.dark .register-link {
 }
 
 body.dark .login-form input {
-  background: #444;
-  border: 1px solid #555;
-  color: #fff;
+  background: #444 !important;
+  border: 1px solid #555 !important;
+  color: #fff !important;
+}
+
+body.dark .login-form input[type="password"] {
+  background: #444 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
 }
 
 body.dark .login-button {
