@@ -5,6 +5,7 @@
   border-radius: 12px;
   background-color: var(--background, #fff);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 }
 
 .login-heading {
@@ -17,8 +18,11 @@
   width: 100%;
   padding: 12px;
   margin: 10px 0;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color, #ccc);
   border-radius: 6px;
+  background-color: var(--input-bg, #fff);
+  color: var(--text, #000);
+  transition: all 0.3s ease;
 }
 
 .login-button {
@@ -36,14 +40,18 @@
 }
 
 .register-link {
-  margin-top: 10px;
+  margin-top: 15px;
   text-align: center;
-  font-size: 0.9em;
+  font-size: 0.95em;
+  color: var(--text, #fff);
+  transition: color 0.3s ease;
 }
 
 .register-link a {
-  color: #007bff;
+  color: var(--link-color, #64b5f6);
   text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 .register-link a:hover {
@@ -53,5 +61,26 @@
 /* Optional dark mode variables */
 body.dark-mode {
   --background: #1e1e1e;
-  --text: #fff;
+  --text: #e0e0e0;
+  --border-color: #444;
+  --input-bg: #2d2d2d;
+  --link-color: #64b5f6;
+}
+
+/* Ensure text is visible in dark mode */
+@media (prefers-color-scheme: dark) {
+  body:not(.light-mode) {
+    --background: #1e1e1e;
+    --text: #e0e0e0;
+    --border-color: #444;
+    --input-bg: #2d2d2d;
+    --link-color: #64b5f6;
+  }
+}
+
+/* Add focus styles for better accessibility */
+input:focus {
+  outline: none;
+  border-color: var(--link-color, #007bff);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }

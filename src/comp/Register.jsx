@@ -19,20 +19,38 @@ const Register = () => {
     setError('');
     
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
+      const apiUrl = `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/auth/register`;
+      console.log('Attempting to register at:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        credentials: 'include', // Important for cookies/sessions
-        body: JSON.stringify(form)
+        credentials: 'include',
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          password: form.password
+        })
       });
 
+      console.log('Registration response status:', response.status);
+      
+      // Handle non-JSON responses
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error('Non-JSON response:', text);
+        throw new Error('Invalid response from server');
+      }
+
       const data = await response.json();
+      console.log('Registration response data:', data);
 
       if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
+        throw new Error(data.message || `Registration failed with status ${response.status}`);
       }
 
       // Redirect to login page on successful registration
@@ -41,7 +59,14 @@ const Register = () => {
       
     } catch (err) {
       console.error('Registration Error:', err);
-      const errorMessage = err.message || 'Failed to register. Please try again.';
+      let errorMessage = 'Failed to register. Please try again.';
+      
+      if (err.message.includes('Failed to fetch')) {
+        errorMessage = 'Unable to connect to the server. Please check your internet connection or try again later.';
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+      
       setError(errorMessage);
     } finally {
       setLoading(false);

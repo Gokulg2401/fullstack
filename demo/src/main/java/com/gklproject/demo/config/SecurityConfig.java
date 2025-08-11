@@ -18,29 +18,39 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(request -> {
                 var corsConfig = new org.springframework.web.cors.CorsConfiguration();
                 corsConfig.setAllowedOrigins(java.util.Arrays.asList(
-                    "http://localhost:3000", 
-                    "https://react-project-git-main-gokuls-projects-f01af370.vercel.app"
+                    "http://localhost:3000",
+                    "https://react-project-git-main-gokuls-projects-f01af370.vercel.app",
+                    "https://demo-blush-ten-86.vercel.app"
                 ));
-                corsConfig.setAllowedMethods(java.util.Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                corsConfig.setAllowedMethods(java.util.Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
                 corsConfig.setAllowedHeaders(java.util.Arrays.asList("*"));
+                corsConfig.setExposedHeaders(java.util.Arrays.asList("Authorization", "Content-Type", "Set-Cookie"));
                 corsConfig.setAllowCredentials(true);
+                corsConfig.setMaxAge(3600L);
                 return corsConfig;
             }))
-            .csrf(csrf -> csrf.disable())
+            .csrf(csrf -> csrf.disable()) // Disable CSRF for API endpoints
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers(
-                    "/", 
-                    "/index.html", 
-                    "/static/**", 
-                    "/css/**", 
-                    "/js/**", 
-                    "/assets/**", 
+                    "/",
+                    "/index.html",
+                    "/static/**",
+                    "/css/**",
+                    "/js/**",
+                    "/assets/**",
                     "/favicon.ico",
                     "/api/auth/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
-            .headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()));
+            .headers(headers -> headers
+                .frameOptions(frameOptionsConfig -> frameOptionsConfig.disable())
+                .httpStrictTransportSecurity(hsts -> hsts.disable())
+            )
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS)
+            );
+            
         return http.build();
     }
 
