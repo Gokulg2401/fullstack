@@ -47,9 +47,31 @@ body.dark .register-container {
 }
 
 body.dark .register-container h2,
-body.dark .register-container input,
 body.dark .register-container button {
   color: white;
   background: #444;
   border: 1px solid #555;
+}
+
+/* Dark mode input styles */
+body.dark .register-container input {
+  color: white !important;
+  background: #444 !important;
+  border: 1px solid #555 !important;
+}
+
+/* Force password text color in dark mode */
+body.dark .register-container input[type="password"] {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}
+
+/* Fix autofill in dark mode */
+body.dark .register-container input:-webkit-autofill,
+body.dark .register-container input:-webkit-autofill:hover,
+body.dark .register-container input:-webkit-autofill:focus,
+body.dark .register-container input:-webkit-autofill:active {
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0 30px #444 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
 }

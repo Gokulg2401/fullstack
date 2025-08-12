@@ -81,23 +81,35 @@ body.dark .register-link {
   color: #fff;
 }
 
+/* Dark mode input styles */
 body.dark .login-form input {
   background: #444 !important;
   border: 1px solid #555 !important;
-  color: #fff !important;
+  color: white !important;
 }
 
+/* Force password text color in dark mode */
+body.dark .login-form input[type="password"] {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}
+
+/* Focus state for inputs */
 body.dark .login-form input:focus {
-  color: #fff !important;
   background: #555 !important;
+  border-color: #666 !important;
+  color: white !important;
+  -webkit-text-fill-color: white !important;
 }
 
+/* Fix autofill in dark mode */
 body.dark .login-form input:-webkit-autofill,
-body.dark .login-form input:-webkit-autofill:hover, 
-body.dark .login-form input:-webkit-autofill:focus, 
+body.dark .login-form input:-webkit-autofill:hover,
+body.dark .login-form input:-webkit-autofill:focus,
 body.dark .login-form input:-webkit-autofill:active {
-  -webkit-text-fill-color: #fff !important;
+  -webkit-text-fill-color: white !important;
   -webkit-box-shadow: 0 0 0 30px #444 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 body.dark .login-button {
