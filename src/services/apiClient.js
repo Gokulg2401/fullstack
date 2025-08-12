@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 // Create axios instance with default config
 const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8080',
+  baseURL: (process.env.REACT_APP_API_URL || 'http://localhost:8080') + '/api',
   timeout: 10000, // 10 seconds
   headers: {
     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ apiClient.interceptors.response.use(
 export const authAPI = {
   login: async (credentials) => {
     try {
-      const response = await apiClient.post('/api/auth/login', credentials);
+      const response = await apiClient.post('/auth/login', credentials);
       return response;
     } catch (error) {
       console.error('Login error:', error);
@@ -68,7 +68,7 @@ export const authAPI = {
   
   register: async (userData) => {
     try {
-      const response = await apiClient.post('/api/auth/register', userData);
+      const response = await apiClient.post('/auth/register', userData);
       return response;
     } catch (error) {
       console.error('Registration error:', error);

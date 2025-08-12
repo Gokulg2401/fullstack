@@ -27,10 +27,12 @@ const Login = () => {
     setError('');
     
     try {
+      console.log('Attempting to connect to:', process.env.REACT_APP_API_URL);
       const response = await authAPI.login({
         email: form.email,
         password: form.password
       });
+      console.log('Login response:', response);
       
       if (response.token) {
         localStorage.setItem('token', response.token);
