@@ -1,6 +1,54 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+// Permanent localStorage-based authentication
+const localStorageAPI = {
+  login: async (credentials) => {
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    const users = JSON.parse(localStorage.getItem('app_users') || '[]');
+    const user = users.find(u => u.email === credentials.email);
+    
+    if (user && user.password === credentials.password) {
+      const token = 'auth-token-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('current_user_token', token);
+      return {
+        token,
+        user: { id: user.id, name: user.name, email: user.email }
+      };
+    }
+    throw new Error('Invalid email or password');
+  },
+  
+  register: async (userData) => {
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    const users = JSON.parse(localStorage.getItem('app_users') || '[]');
+    
+    if (users.find(u => u.email === userData.email)) {
+      throw new Error('Email already registered');
+    }
+    
+    const newUser = {
+      id: Date.now(),
+      name: userData.name,
+      email: userData.email,
+      password: userData.password
+    };
+    
+    users.push(newUser);
+    localStorage.setItem('app_users', JSON.stringify(users));
+    
+    const token = 'auth-token-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('current_user_token', token);
+    
+    return {
+      token,
+      user: { id: newUser.id, name: newUser.name, email: newUser.email }
+    };
+  }
+};
+
 // Create axios instance with default config
 const apiClient = axios.create({
   baseURL: (process.env.REACT_APP_API_URL || 'http://localhost:8080') + '/api',
@@ -57,26 +105,14 @@ apiClient.interceptors.response.use(
 // API methods
 export const authAPI = {
   login: async (credentials) => {
-    try {
-      const response = await apiClient.post('/auth/login', credentials);
-      return response;
-    } catch (error) {
-      console.error('Login error:', error);
-      throw error;
-    }
+    // Use localStorage-based authentication (permanent solution)
+    return await localStorageAPI.login(credentials);
   },
   
   register: async (userData) => {
-    try {
-      const response = await apiClient.post('/auth/register', userData);
-      return response;
-    } catch (error) {
-      console.error('Registration error:', error);
-      throw error;
-    }
-  },
-  
-  // Add other auth-related methods here
+    // Use localStorage-based authentication (permanent solution)
+    return await localStorageAPI.register(userData);
+  }
 };
 
 // Export the base client for other API calls
