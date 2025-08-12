@@ -39,6 +39,7 @@ import Landing from "./comp/Landing";
 import "./Myapp.css";
 import CategoryProducts from "./comp/CategoryProducts";
 import Buynow from "./page/Buynow";
+import ThankYou from "./page/ThankYou";
 import Footer from "./comp/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -75,6 +76,7 @@ const App = () => {
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/buynow" element={<Buynow />} />
+            <Route path="/thank-you" element={<ThankYou />} />
           </Routes>
         </div>
 
