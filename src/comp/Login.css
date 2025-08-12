@@ -87,10 +87,17 @@ body.dark .login-form input {
   color: #fff !important;
 }
 
-body.dark .login-form input[type="password"] {
-  background: #444 !important;
+body.dark .login-form input:focus {
   color: #fff !important;
+  background: #555 !important;
+}
+
+body.dark .login-form input:-webkit-autofill,
+body.dark .login-form input:-webkit-autofill:hover, 
+body.dark .login-form input:-webkit-autofill:focus, 
+body.dark .login-form input:-webkit-autofill:active {
   -webkit-text-fill-color: #fff !important;
+  -webkit-box-shadow: 0 0 0 30px #444 inset !important;
 }
 
 body.dark .login-button {

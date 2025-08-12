@@ -4,7 +4,7 @@ import { authAPI } from '../services/apiClient';
 import './Login.css';
 
 const Login = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ const Login = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!form.email || !form.password) {
-      setError('Please enter both email and password');
+    if (!form.name || !form.email || !form.password) {
+      setError('Please fill in all fields');
       return;
     }
     
@@ -52,6 +52,15 @@ const Login = () => {
       {error && <div className="error-message">{error}</div>}
       <form className="login-form" onSubmit={handleSubmit}>
         <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          value={form.name}
+          onChange={handleChange}
+          disabled={loading}
+          required
+        />
+        <input
           type="email"
           name="email"
           placeholder="Email"
@@ -68,6 +77,7 @@ const Login = () => {
           onChange={handleChange}
           disabled={loading}
           required
+          minLength="6"
         />
         <button
           type="submit"
