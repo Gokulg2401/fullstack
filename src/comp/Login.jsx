@@ -4,7 +4,7 @@ import { authAPI } from '../services/apiClient';
 import './Login.css';
 
 const Login = () => {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!form.name || !form.email || !form.password) {
+    if (!form.email || !form.password) {
       setError('Please fill in all fields');
       return;
     }
@@ -47,19 +47,10 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="register-container">
       <h2>Login</h2>
-      {error && <div className="error-message">{error}</div>}
-      <form className="login-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Full Name"
-          value={form.name}
-          onChange={handleChange}
-          disabled={loading}
-          required
-        />
+      {error && <div className="error-message" style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
           name="email"
@@ -79,16 +70,26 @@ const Login = () => {
           required
           minLength="6"
         />
-        <button
-          type="submit"
-          className="login-button"
+        <button 
+          type="submit" 
           disabled={loading}
+          style={{
+            backgroundColor: loading ? '#ccc' : '#4CAF50',
+            cursor: loading ? 'not-allowed' : 'pointer',
+            color: 'white',
+            padding: '10px',
+            fontSize: '16px',
+            border: 'none',
+            borderRadius: '6px',
+            width: '100%',
+            marginTop: '10px'
+          }}
         >
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
-      <div className="register-link">
-        Don't have an account? <Link to="/register">Register here</Link>
+      <div style={{ marginTop: '15px', textAlign: 'center' }}>
+        Don't have an account? <Link to="/register" style={{ color: '#4CAF50', textDecoration: 'none' }}>Register here</Link>
       </div>
     </div>
   );
