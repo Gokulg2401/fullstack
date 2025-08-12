@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mockApi } from '../services/mockApi';
+import { authAPI } from '../services/apiClient';
 import './Register.css';
 
 const Register = () => {
@@ -11,70 +11,39 @@ const Register = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setError(''); // Clear error when user types
+    setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Basic validation
+    if (!form.name || !form.email || !form.password) {
+      setError('Please fill in all fields');
+      return;
+    }
+    
+    if (form.password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
+    
     setLoading(true);
     setError('');
     
     try {
-      const apiUrl = `${process.env.REACT_APP_API_URL || 'http://localhost:8080'}/api/auth/register`;
-      console.log('Attempting to register at:', apiUrl);
+      const response = await authAPI.register({
+        name: form.name,
+        email: form.email,
+        password: form.password
+      });
       
-      let response;
-      try {
-        response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          credentials: 'include',
-          body: JSON.stringify({
-            name: form.name,
-            email: form.email,
-            password: form.password
-          })
-        });
-      } catch (fetchError) {
-        console.log('Backend unavailable, using mock API');
-        response = await mockApi.register({ name: form.name, email: form.email, password: form.password });
-      }
-
-      let data;
-      if (response.json) {
-        data = await response.json();
-      } else {
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-          const text = await response.text();
-          throw new Error('Invalid response from server');
-        }
-        data = await response.json();
-      }
-      console.log('Registration response data:', data);
-
-      if (response.ok === false) {
-        throw new Error(data.message || 'Registration failed');
-      }
-
       // Redirect to login page on successful registration
       alert('Registration successful! Please login with your credentials.');
       navigate('/login');
-      
     } catch (err) {
       console.error('Registration Error:', err);
-      let errorMessage = 'Failed to register. Please try again.';
-      
-      if (err.message.includes('Failed to fetch')) {
-        errorMessage = 'Unable to connect to the server. Please check your internet connection or try again later.';
-      } else if (err.message) {
-        errorMessage = err.message;
-      }
-      
-      setError(errorMessage);
+      setError(err.message || 'Failed to register. Please try again.');
     } finally {
       setLoading(false);
     }
