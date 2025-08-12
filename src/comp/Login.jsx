@@ -4,7 +4,7 @@ import { authAPI } from '../services/apiClient';
 import './Login.css';
 
 const Login = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Login = () => {
     
     // Basic validation
     if (!form.email || !form.password) {
-      setError('Please fill in all fields');
+      setError('Please fill in all required fields');
       return;
     }
     
@@ -29,6 +29,7 @@ const Login = () => {
     try {
       console.log('Attempting to connect to:', process.env.REACT_APP_API_URL);
       const response = await authAPI.login({
+        name: form.name,
         email: form.email,
         password: form.password
       });
@@ -36,13 +37,16 @@ const Login = () => {
       
       if (response.token) {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
         navigate('/landing');
+      } else if (response.message) {
+        throw new Error(response.message);
       } else {
         throw new Error('No authentication token received');
       }
     } catch (err) {
       console.error('Login Error:', err);
-      setError(err.message || 'Failed to login. Please check your credentials and try again.');
+      setError(err.response?.data?.message || err.message || 'Failed to login. Please check your credentials and try again.');
     } finally {
       setLoading(false);
     }
@@ -54,6 +58,15 @@ const Login = () => {
       {error && <div className="error-message" style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
       <form onSubmit={handleSubmit}>
         <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={form.name}
+          onChange={handleChange}
+          disabled={loading}
+          className={loading ? 'disabled-input' : ''}
+        />
+        <input
           type="email"
           name="email"
           placeholder="Email"
@@ -61,6 +74,7 @@ const Login = () => {
           onChange={handleChange}
           disabled={loading}
           required
+          className={loading ? 'disabled-input' : ''}
         />
         <input
           type="password"
@@ -71,27 +85,22 @@ const Login = () => {
           disabled={loading}
           required
           minLength="6"
+          className={loading ? 'disabled-input' : ''}
         />
         <button 
           type="submit" 
           disabled={loading}
+          className="auth-button"
           style={{
             backgroundColor: loading ? '#ccc' : '#4CAF50',
             cursor: loading ? 'not-allowed' : 'pointer',
-            color: 'white',
-            padding: '10px',
-            fontSize: '16px',
-            border: 'none',
-            borderRadius: '6px',
-            width: '100%',
-            marginTop: '10px'
           }}
         >
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
-      <div style={{ marginTop: '15px', textAlign: 'center' }}>
-        Don't have an account? <Link to="/register" style={{ color: '#4CAF50', textDecoration: 'none' }}>Register here</Link>
+      <div className="auth-link">
+        Don't have an account? <Link to="/register">Register here</Link>
       </div>
     </div>
   );
