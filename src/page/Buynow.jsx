@@ -9,8 +9,6 @@ const BuyNow = () => {
   const { cartItems, clearCart } = useCart();
   const [formData, setFormData] = useState({
     name: '',
-    address: '',
-    phone: '',
     email: '',
     paymentMethod: ''
   });
@@ -27,7 +25,7 @@ const BuyNow = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.name || !formData.address || !formData.phone || !formData.email || !formData.paymentMethod) {
+    if (!formData.name || !formData.email || !formData.paymentMethod) {
       toast.error('Please fill in all fields');
       return;
     }
@@ -77,22 +75,6 @@ const BuyNow = () => {
           required 
         />
         <input 
-          type="text" 
-          name="address"
-          placeholder="Address" 
-          value={formData.address}
-          onChange={handleChange}
-          required 
-        />
-        <input 
-          type="tel" 
-          name="phone"
-          placeholder="Phone Number" 
-          value={formData.phone}
-          onChange={handleChange}
-          required 
-        />
-        <input 
           type="email" 
           name="email"
           placeholder="Email" 
@@ -108,6 +90,9 @@ const BuyNow = () => {
         >
           <option value="">Select Payment Method</option>
           <option value="card">Credit/Debit Card</option>
+          <option value="netbanking">Net Banking</option>
+          <option value="wallet">Wallet</option>
+          <option value="emi">EMI Payment</option>
           <option value="upi">UPI</option>
           <option value="cod">Cash on Delivery</option>
         </select>

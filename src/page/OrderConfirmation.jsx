@@ -1,10 +1,23 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './OrderConfirmation.css';
 
 const OrderConfirmation = () => {
   const location = useLocation();
-  const { orderData, cartItems } = location.state || {};
+  const navigate = useNavigate();
+  const { order } = location.state || {};
+
+  if (!order) {
+    return (
+      <div className="order-confirmation-container">
+        <h2>Order Not Found</h2>
+        <p>We couldn't find your order details.</p>
+        <button onClick={() => navigate('/')} className="continue-shopping-btn">
+          Continue Shopping
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="order-confirmation-container">
@@ -14,15 +27,13 @@ const OrderConfirmation = () => {
       </div>
       
       <div className="order-details">
-        <h3>Order Details</h3>
+        <h3>Order Confirmation</h3>
         
         <div className="customer-info">
-          <h4>Customer Information</h4>
-          <p><strong>Name:</strong> {orderData?.name}</p>
-          <p><strong>Address:</strong> {orderData?.address}</p>
-          <p><strong>Phone:</strong> {orderData?.phone}</p>
-          <p><strong>Email:</strong> {orderData?.email}</p>
-          <p><strong>Payment Method:</strong> {orderData?.paymentMethod}</p>
+          <p><strong>Name:</strong> {order.customer.name}</p>
+          <p><strong>Email:</strong> {order.customer.email}</p>
+          <p><strong>Payment Method:</strong> {order.customer.paymentMethod}</p>
+          <p><strong>Order Number:</strong> {order.orderId}</p>
         </div>
 
         <div className="items-ordered">
