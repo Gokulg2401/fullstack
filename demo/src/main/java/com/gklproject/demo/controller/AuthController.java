@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.gklproject.demo.dto.UserDTO;
 import com.gklproject.demo.entity.User;
 import com.gklproject.demo.repository.UserRepository;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -53,9 +53,9 @@ public class AuthController {
             resp.put("message", "Login successful");
             resp.put("token", "jwt-token-" + System.currentTimeMillis());
             resp.put("user", Map.of(
-                "id", user.getId(),
-                "name", user.getName(),
-                "email", user.getEmail()
+                    "id", user.getId(),
+                    "name", user.getName(),
+                    "email", user.getEmail()
             ));
             return ResponseEntity.ok(resp);
         }
