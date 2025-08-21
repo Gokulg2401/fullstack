@@ -39,7 +39,7 @@ const Register = () => {
       });
       
       // Redirect to login page on successful registration
-      alert('Registration successful! Please login with your credentials.');
+      alert('Registration successful!!! Please login with your credentials.');
       navigate('/login');
     } catch (err) {
       console.error('Registration Error:', err);
@@ -57,7 +57,7 @@ const Register = () => {
         <input
           name="name"
           type="text"
-          placeholder="Name"
+          placeholder="Enter your Name"
           value={form.name}
           onChange={handleChange}
           disabled={loading}
@@ -66,7 +66,7 @@ const Register = () => {
         <input
           name="email"
           type="email"
-          placeholder="Email"
+          placeholder="Enter your Email"
           value={form.email}
           onChange={handleChange}
           disabled={loading}
@@ -75,7 +75,7 @@ const Register = () => {
         <input
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="Enter your Password"
           value={form.password}
           onChange={handleChange}
           disabled={loading}

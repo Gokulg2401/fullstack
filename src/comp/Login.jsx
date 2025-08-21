@@ -60,7 +60,7 @@ const Login = () => {
         <input
           type="text"
           name="name"
-          placeholder="Name"
+          placeholder="Enter your Name"
           value={form.name}
           onChange={handleChange}
           disabled={loading}
@@ -69,7 +69,7 @@ const Login = () => {
         <input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder="Enter your Email"
           value={form.email}
           onChange={handleChange}
           disabled={loading}
@@ -79,7 +79,7 @@ const Login = () => {
         <input
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder="Enter your Password"
           value={form.password}
           onChange={handleChange}
           disabled={loading}
@@ -100,7 +100,7 @@ const Login = () => {
         </button>
       </form>
       <div className="auth-link">
-        Don't have an account? <Link to="/register">Register here</Link>
+        Don't you have an account??? <Link to="/register">Register here</Link>
       </div>
     </div>
   );
