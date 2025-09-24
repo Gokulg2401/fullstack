@@ -213,7 +213,7 @@
 
 
 //Nostra 2nd assessment code
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import "./Assessment.css";
 
 const columns = [
