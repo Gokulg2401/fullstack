@@ -13,7 +13,7 @@ const Accessories = () => {
     };
     fetchAccessories();
   }, []);
-
+  
   return (
     <section className="accessories-section">
       <ProductList products={accItems} />
