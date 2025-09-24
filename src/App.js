@@ -99,7 +99,7 @@
 
 //Nostra Assessment code
 import React, { useState, useEffect } from "react";
-import "./NostraApp.css";
+import "./NotionApp.css";
 
 const quotes = [
   {
