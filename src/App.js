@@ -30,7 +30,7 @@
 
 // // //   );
 // // // }
-// //Project code
+//Project code
 // import React from "react";
 // import { Routes, Route, useLocation } from "react-router-dom";
 // import Main from "./page/Main";
@@ -213,188 +213,204 @@
 
 
 //Nostra 2nd assessment code
-import React, { useState, useMemo } from "react";
-import "./Assessment.css";
+// import React, { useState, useMemo } from "react";
+// import "./Assessment.css";
 
-const columns = [
-  { key: "Title", label: "Title" },
-  { key: "Author", label: "Author" },
-  { key: "Genre", label: "Genre" },
-  { key: "PublishedYear", label: "Published Year" },
-  { key: "ISBN", label: "ISBN" },
-];
+// const columns = [
+//   { key: "Title", label: "Title" },
+//   { key: "Author", label: "Author" },
+//   { key: "Genre", label: "Genre" },
+//   { key: "PublishedYear", label: "Published Year" },
+//   { key: "ISBN", label: "ISBN" },
+// ];
 
 // Basic CSV parsing: converts CSV text to array of objects
-function parseCSV(text) {
-  const lines = text.trim().split("\n");
-  const headers = lines[0].split(",");
-  return lines.slice(1).map(line => {
-    const values = line.split(",");
-    const obj = {};
-    headers.forEach((header, i) => {
-      obj[header.trim()] = values[i]?.trim() || "";
-    });
-    return obj;
-  });
-}
+// function parseCSV(text) {
+//   const lines = text.trim().split("\n");
+//   const headers = lines[0].split(",");
+//   return lines.slice(1).map(line => {
+//     const values = line.split(",");
+//     const obj = {};
+//     headers.forEach((header, i) => {
+//       obj[header.trim()] = values[i]?.trim() || "";
+//     });
+//     return obj;
+//   });
+// }
 
-// Basic CSV stringification from array of objects
-function stringifyCSV(data) {
-  if (!data.length) return "";
-  const headers = Object.keys(data[0]);
-  const rows = data.map(row =>
-    headers.map(h => `"${(row[h] || "").replace(/"/g, '""')}"`).join(",")
-  );
-  return [headers.join(","), ...rows].join("\n");
-}
+// // Basic CSV stringification from array of objects
+// function stringifyCSV(data) {
+//   if (!data.length) return "";
+//   const headers = Object.keys(data[0]);
+//   const rows = data.map(row =>
+//     headers.map(h => `"${(row[h] || "").replace(/"/g, '""')}"`).join(",")
+//   );
+//   return [headers.join(","), ...rows].join("\n");
+// }
+
+// function App() {
+//   const [originalData, setOriginalData] = useState([]);
+//   const [editedData, setEditedData] = useState([]);
+//   const [filters, setFilters] = useState({});
+//   const [sortConfig, setSortConfig] = useState(null);
+//   const [isLoading, setIsLoading] = useState(false);
+
+//   function handleFileUpload(e) {
+//     const file = e.target.files[0];
+//     if (!file) return;
+//     setIsLoading(true);
+//     const reader = new FileReader();
+//     reader.onload = (event) => {
+//       const parsed = parseCSV(event.target.result);
+//       setOriginalData(parsed);
+//       setEditedData(parsed);
+//       setFilters({});
+//       setSortConfig(null);
+//       setIsLoading(false);
+//     };
+//     reader.readAsText(file);
+//   }
+
+//   const handleFilterChange = (key, value) => {
+//     setFilters((prev) => ({ ...prev, [key]: value }));
+//   };
+
+//   const handleCellChange = (rowIndex, key, value) => {
+//     setEditedData((prev) => {
+//       const newData = [...prev];
+//       newData[rowIndex] = { ...newData[rowIndex], [key]: value };
+//       return newData;
+//     });
+//   };
+
+//   const resetEdits = () => {
+//     setEditedData(originalData);
+//     setFilters({});
+//     setSortConfig(null);
+//   };
+
+//   const sortedData = useMemo(() => {
+//     if (!editedData) return [];
+//     const sortableData = [...editedData];
+//     if (sortConfig !== null) {
+//       sortableData.sort((a, b) => {
+//         if ((a[sortConfig.key] || "") < (b[sortConfig.key] || ""))
+//           return sortConfig.direction === "asc" ? -1 : 1;
+//         if ((a[sortConfig.key] || "") > (b[sortConfig.key] || ""))
+//           return sortConfig.direction === "asc" ? 1 : -1;
+//         return 0;
+//       });
+//     }
+//     return sortableData;
+//   }, [editedData, sortConfig]);
+
+//   const filteredData = useMemo(() => {
+//     return sortedData.filter(row =>
+//       columns.every(({ key }) =>
+//         !filters[key] || (row[key] || "").toString().toLowerCase().includes(filters[key].toLowerCase())
+//       )
+//     );
+//   }, [sortedData, filters]);
+
+//   const downloadCSV = () => {
+//     const csv = stringifyCSV(editedData);
+//     const blob = new Blob([csv], { type: "text/csv" });
+//     const url = URL.createObjectURL(blob);
+//     const a = document.createElement("a");
+//     a.href = url;
+//     a.download = "edited_books.csv";
+//     a.click();
+//     URL.revokeObjectURL(url);
+//   };
+
+//   const isCellEdited = (rowIndex, key) => {
+//     if (!originalData[rowIndex]) return false;
+//     return originalData[rowIndex][key] !== editedData[rowIndex][key];
+//   };
+
+//   return (
+//     <div className="container">
+//       <h1>Book CSV Editor (Minimal)</h1>
+
+//       <input type="file" accept=".csv" onChange={handleFileUpload} />
+//       {isLoading && <p>Loading CSV...</p>}
+
+//       {!!editedData.length && (
+//         <>
+//           <div className="controls">
+//             <button onClick={resetEdits}>Reset Edits</button>
+//             <button onClick={downloadCSV}>Download CSV</button>
+//             <p>{filteredData.length} of {editedData.length} records shown</p>
+//           </div>
+//           <div className="table-wrapper">
+//             <table>
+//               <thead>
+//                 <tr>
+//                   {columns.map(({ key, label }) => (
+//                     <th key={key}>
+//                       {label}
+//                       <button
+//                         className="sort-btn"
+//                         onClick={() => {
+//                           let direction = "asc";
+//                           if (sortConfig?.key === key && sortConfig?.direction === "asc")
+//                             direction = "desc";
+//                           setSortConfig({ key, direction });
+//                         }}
+//                       >
+//                         {sortConfig?.key === key
+//                           ? sortConfig.direction === "asc"
+//                             ? "▲"
+//                             : "▼"
+//                           : "↕"}
+//                       </button>
+//                       <br />
+//                       <input
+//                         type="text"
+//                         placeholder="Filter"
+//                         value={filters[key] || ""}
+//                         onChange={e => handleFilterChange(key, e.target.value)}
+//                       />
+//                     </th>
+//                   ))}
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {filteredData.map((row, idx) => (
+//                   <tr key={idx}>
+//                     {columns.map(({ key }) => (
+//                       <td key={key} className={isCellEdited(idx, key) ? "edited-cell" : ""}>
+//                         <input
+//                           value={editedData[idx][key] || ""}
+//                           onChange={e => handleCellChange(idx, key, e.target.value)}
+//                         />
+//                       </td>
+//                     ))}
+//                   </tr>
+//                 ))}
+//               </tbody>
+//             </table>
+//           </div>
+//         </>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+import React from 'react';
+import Homee from './pages/Homee';
+import './pages/Homee.css';
 
 function App() {
-  const [originalData, setOriginalData] = useState([]);
-  const [editedData, setEditedData] = useState([]);
-  const [filters, setFilters] = useState({});
-  const [sortConfig, setSortConfig] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  function handleFileUpload(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    setIsLoading(true);
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const parsed = parseCSV(event.target.result);
-      setOriginalData(parsed);
-      setEditedData(parsed);
-      setFilters({});
-      setSortConfig(null);
-      setIsLoading(false);
-    };
-    reader.readAsText(file);
-  }
-
-  const handleFilterChange = (key, value) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleCellChange = (rowIndex, key, value) => {
-    setEditedData((prev) => {
-      const newData = [...prev];
-      newData[rowIndex] = { ...newData[rowIndex], [key]: value };
-      return newData;
-    });
-  };
-
-  const resetEdits = () => {
-    setEditedData(originalData);
-    setFilters({});
-    setSortConfig(null);
-  };
-
-  const sortedData = useMemo(() => {
-    if (!editedData) return [];
-    const sortableData = [...editedData];
-    if (sortConfig !== null) {
-      sortableData.sort((a, b) => {
-        if ((a[sortConfig.key] || "") < (b[sortConfig.key] || ""))
-          return sortConfig.direction === "asc" ? -1 : 1;
-        if ((a[sortConfig.key] || "") > (b[sortConfig.key] || ""))
-          return sortConfig.direction === "asc" ? 1 : -1;
-        return 0;
-      });
-    }
-    return sortableData;
-  }, [editedData, sortConfig]);
-
-  const filteredData = useMemo(() => {
-    return sortedData.filter(row =>
-      columns.every(({ key }) =>
-        !filters[key] || (row[key] || "").toString().toLowerCase().includes(filters[key].toLowerCase())
-      )
-    );
-  }, [sortedData, filters]);
-
-  const downloadCSV = () => {
-    const csv = stringifyCSV(editedData);
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "edited_books.csv";
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const isCellEdited = (rowIndex, key) => {
-    if (!originalData[rowIndex]) return false;
-    return originalData[rowIndex][key] !== editedData[rowIndex][key];
-  };
-
   return (
-    <div className="container">
-      <h1>Book CSV Editor (Minimal)</h1>
-
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
-      {isLoading && <p>Loading CSV...</p>}
-
-      {!!editedData.length && (
-        <>
-          <div className="controls">
-            <button onClick={resetEdits}>Reset Edits</button>
-            <button onClick={downloadCSV}>Download CSV</button>
-            <p>{filteredData.length} of {editedData.length} records shown</p>
-          </div>
-          <div className="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  {columns.map(({ key, label }) => (
-                    <th key={key}>
-                      {label}
-                      <button
-                        className="sort-btn"
-                        onClick={() => {
-                          let direction = "asc";
-                          if (sortConfig?.key === key && sortConfig?.direction === "asc")
-                            direction = "desc";
-                          setSortConfig({ key, direction });
-                        }}
-                      >
-                        {sortConfig?.key === key
-                          ? sortConfig.direction === "asc"
-                            ? "▲"
-                            : "▼"
-                          : "↕"}
-                      </button>
-                      <br />
-                      <input
-                        type="text"
-                        placeholder="Filter"
-                        value={filters[key] || ""}
-                        onChange={e => handleFilterChange(key, e.target.value)}
-                      />
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {filteredData.map((row, idx) => (
-                  <tr key={idx}>
-                    {columns.map(({ key }) => (
-                      <td key={key} className={isCellEdited(idx, key) ? "edited-cell" : ""}>
-                        <input
-                          value={editedData[idx][key] || ""}
-                          onChange={e => handleCellChange(idx, key, e.target.value)}
-                        />
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </>
-      )}
+    <div>
+      <Homee />
     </div>
   );
 }
 
 export default App;
+
