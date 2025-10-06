@@ -6,7 +6,6 @@ import './Auth.css';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
     password: ''
   });
@@ -43,16 +42,6 @@ const LoginPage = () => {
       <div className="auth-card">
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
           <div className="form-group">
             <input
               type="email"

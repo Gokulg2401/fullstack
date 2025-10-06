@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: auth-backend
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm run test
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        value: super-secret-jwt-key-for-production-2024
+      - key: MONGODB_URI
+        value: mongodb+srv://authuser:authpass123@cluster0.mongodb.net/auth-app?retryWrites=true&w=majority
+
+  - type: web
+    name: auth-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://auth-backend.onrender.com
