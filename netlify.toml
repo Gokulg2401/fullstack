@@ -1,0 +1,26 @@
+[build]
+  # Install dependencies for both frontend and backend
+  command = "cd frontend && npm install && npm run build"
+  # Publish the frontend build directory
+  publish = "frontend/build"
+  # Base directory for the build
+  base = "."
+
+[build.environment]
+  NODE_VERSION = "18.0.0"
+  NPM_VERSION = "9.0.0"
+  # Add your environment variables here
+  # REACT_APP_API_URL = "https://your-backend-url.herokuapp.com"
+
+# Handle client-side routing - redirect all routes to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# For local development
+[dev]
+  command = "cd frontend && npm start"
+  port = 3000
+  publish = "frontend/build"
+  targetPort = 3000
