@@ -2,12 +2,20 @@
   "name": "fullstack-auth",
   "version": "1.0.0",
   "description": "Full-stack authentication module",
-  "main": "backend/server.js",
+  "private": true,
   "scripts": {
     "start": "cd backend && npm start",
-    "build": "npm install && npm run build",
+    "build": "react-scripts build",
     "dev": "cd backend && npm run dev",
     "deploy": "npm run build && npm start"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0",
+    "react-scripts": "5.0.1",
+    "axios": "^1.3.0",
+    "react-toastify": "^9.1.0"
   },
   "engines": {
     "node": ">=14.0.0"
