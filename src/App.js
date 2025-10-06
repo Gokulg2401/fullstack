@@ -22,11 +22,7 @@ const App = () => {
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<RegisterPage />} />
           <Route path="/api/auth/register" element={<RegisterPage />} />
-          <Route path="/auth/profile" element={
-            <ProtectedRoute>
-              <ProfilePage />
-            </ProtectedRoute>
-          } />
+          <Route path="/auth/profile" element={<ProfilePage />} />
         </Routes>
         <ToastContainer position="top-center" autoClose={3000} />
       </div>
