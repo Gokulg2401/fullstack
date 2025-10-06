@@ -17,13 +17,10 @@ const App = () => {
       <div className="app-container">
         <Routes>
           <Route path="/" element={<AuthDemo />} />
-          <Route path="/auth" element={<AuthDemo />} />
-          <Route path="/login" element={<AuthDemo />} />
-          <Route path="/auth/login" element={<LoginPage />} />
-          <Route path="/auth/register" element={<RegisterPage />} />
-          <Route path="/api/auth/register" element={<RegisterPage />} />
-          <Route path="/auth/profile" element={<ProfilePage />} />
-          <Route path="/auth/protected" element={<ProtectedRoute />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/dashboard" element={<ProtectedRoute />} />
         </Routes>
         <ToastContainer position="top-center" autoClose={3000} />
       </div>

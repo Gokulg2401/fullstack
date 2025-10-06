@@ -28,7 +28,7 @@ const RegisterPage = () => {
     try {
       await register(formData);
       toast.success('Registration successful!');
-      navigate('/auth/login');
+      navigate('/login');
     } catch (error) {
       console.error('Registration error:', error);
       const errorMessage = error.response?.data?.message || error.message || 'Registration failed';
@@ -79,7 +79,7 @@ const RegisterPage = () => {
           </button>
         </form>
         <p>
-          Already have an account? <Link to="/auth/login">Login here</Link>
+          Already have an account? <Link to="/login">Login here</Link>
         </p>
       </div>
     </div>

@@ -10,7 +10,7 @@ const connectDB = async () => {
   } catch (error) {
     console.error('Database connection error:', error.message);
     console.log('Please ensure MongoDB is running or update MONGODB_URI in .env');
-    process.exit(1);
+    console.log('Server will continue running without database connection');
   }
 };
 

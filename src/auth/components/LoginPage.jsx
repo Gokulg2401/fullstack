@@ -27,7 +27,7 @@ const LoginPage = () => {
     try {
       await login(formData);
       toast.success('Login successful!');
-      navigate('/auth/profile');
+      navigate('/profile');
     } catch (error) {
       console.error('Login error:', error);
       const errorMessage = error.response?.data?.message || error.message || 'Login failed';
@@ -67,7 +67,7 @@ const LoginPage = () => {
           </button>
         </form>
         <p>
-          Don't have an account? <Link to="/auth/register">Register here</Link>
+          Don't have an account? <Link to="/register">Register here</Link>
         </p>
       </div>
     </div>

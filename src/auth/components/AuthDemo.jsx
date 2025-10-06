@@ -30,10 +30,10 @@ const AuthDemo = () => {
           <div className="demo-actions">
             <h3>Try it out:</h3>
             <div className="demo-buttons">
-              <Link to="/auth/register" className="auth-btn">
+              <Link to="/register" className="auth-btn">
                 Register
               </Link>
-              <Link to="/auth/login" className="auth-btn">
+              <Link to="/login" className="auth-btn">
                 Login
               </Link>
             </div>
